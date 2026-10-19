@@ -127,7 +127,7 @@ export const CardArtwork: React.FC<CardArtworkProps> = ({ card, isHovered }) => 
           {/* Portrait Image */}
           <div className="absolute inset-0 w-full h-full z-0 overflow-hidden">
             <img
-              src="/assets/portrait.jpg"
+              src="./assets/portrait.jpg"
               alt="Sharique Sayeed Rahman"
               className={`w-full h-full object-cover object-top transition-transform duration-700 ease-out ${
                 isHovered ? 'scale-105' : 'scale-100'

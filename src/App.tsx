@@ -218,7 +218,7 @@ export function App() {
         {/* Footer action buttons — RESUME.PDF + GET IN TOUCH */}
         <div className="flex items-center gap-2">
           <a
-            href="/assets/sharique_sayeed_rahman_resume.pdf"
+            href="./assets/sharique_sayeed_rahman_resume.pdf"
             download="Sharique_Sayeed_Rahman_Resume.pdf"
             target="_blank"
             rel="noopener noreferrer"

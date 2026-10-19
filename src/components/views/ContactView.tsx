@@ -135,6 +135,16 @@ export const ContactView: React.FC<ContactViewProps> = ({ onBack }) => {
           _hp: '',
         });
         setWordLimitWarning(null);
+      } else if (response.status === 404) {
+        // Graceful fallback for static environments (GitHub Pages)
+        const subject = encodeURIComponent(`Portfolio Inquiry from ${formData.name}`);
+        const bodyText = encodeURIComponent(
+          `Name: ${formData.name}\nEmail: ${formData.email}\nPhone: ${formData.phone || 'N/A'}\n\nMessage:\n${formData.message}`
+        );
+        window.location.href = `mailto:ssrahman2002@gmail.com?subject=${subject}&body=${bodyText}`;
+        setSuccessMessage(
+          'Connecting to email... Opening your email app to transmit directly to ssrahman2002@gmail.com.'
+        );
       } else {
         // Preserve entered user data on recoverable error
         setErrorMessage(
@@ -143,10 +153,15 @@ export const ContactView: React.FC<ContactViewProps> = ({ onBack }) => {
         );
       }
     } catch (err: unknown) {
-      console.error('Contact transmission failed:', err);
-      // Preserve entered user data on network error
-      setErrorMessage(
-        'Network error: Unable to reach the server. Your message has been preserved; please try again.'
+      console.error('Contact transmission fallback:', err);
+      // Graceful fallback for network/offline/static environments
+      const subject = encodeURIComponent(`Portfolio Inquiry from ${formData.name}`);
+      const bodyText = encodeURIComponent(
+        `Name: ${formData.name}\nEmail: ${formData.email}\nPhone: ${formData.phone || 'N/A'}\n\nMessage:\n${formData.message}`
+      );
+      window.location.href = `mailto:ssrahman2002@gmail.com?subject=${subject}&body=${bodyText}`;
+      setSuccessMessage(
+        'Connecting to email... Opening your email app to transmit directly to ssrahman2002@gmail.com.'
       );
     } finally {
       setIsSubmitting(false);

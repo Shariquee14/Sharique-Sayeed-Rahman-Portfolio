@@ -46,7 +46,7 @@ export const MeView: React.FC<MeViewProps> = ({ onBack, onOpenContact }) => {
           <div className="relative rounded-3xl overflow-hidden shadow-2xl bg-neutral-950 border border-neutral-300/80 dark:border-neutral-800 group">
             <div className="aspect-4/5 w-full relative overflow-hidden bg-neutral-900">
               <img
-                src="/assets/about_portrait.jpg"
+                src="./assets/about_portrait.jpg"
                 alt={PERSONAL_INFO.name}
                 className="w-full h-full object-cover object-[center_12%] transition-transform duration-700 ease-out group-hover:scale-[1.02]"
                 style={{

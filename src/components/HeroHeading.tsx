@@ -179,7 +179,7 @@ export const HeroHeading: React.FC<HeroHeadingProps> = ({ onPrev, onNext }) => {
               style={{ width: 45, height: 155 }}
             >
               <img
-                src="/assets/hero_character.png"
+                src="./assets/hero_character.png"
                 alt="Sharique Sayeed Rahman"
                 className="absolute select-none pointer-events-none drop-shadow-[0_4px_16px_rgba(0,0,0,0.30)]"
                 style={{ height: 188, width: 'auto', top: -8, left: -50 }}

@@ -53,8 +53,8 @@ export const PERSONAL_INFO = {
   location: "Jamshedpur, Jharkhand, India",
   linkedin: "https://linkedin.com/in/sharique-sayeed-rahman",
   github: "https://github.com/Shariquee14", // standard profile link
-  resumePdf: "/assets/sharique_sayeed_rahman_resume.pdf",
-  portraitImg: "/assets/portrait.jpg",
+  resumePdf: "./assets/sharique_sayeed_rahman_resume.pdf",
+  portraitImg: "./assets/portrait.jpg",
 };
 
 export const PROJECTS: Project[] = [
