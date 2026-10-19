@@ -2,6 +2,12 @@ import type { IncomingMessage, ServerResponse } from 'http';
 import { processContactForm, type ContactSubmissionPayload } from '../server/contactHandler.ts';
 
 export default async function handler(req: IncomingMessage & { body?: any }, res: ServerResponse) {
+  if (req.method === 'OPTIONS') {
+    res.statusCode = 200;
+    res.end();
+    return;
+  }
+
   if (req.method !== 'POST') {
     res.statusCode = 405;
     res.setHeader('Content-Type', 'application/json');
