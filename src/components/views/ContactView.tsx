@@ -112,21 +112,71 @@ export const ContactView: React.FC<ContactViewProps> = ({ onBack }) => {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
+      let isSent = false;
+      let replyMessage = '';
 
-      const result = await response.json().catch(() => ({}));
+      // 1. If running on local dev server where /api/contact exists
+      if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+        try {
+          const response = await fetch('/api/contact', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData),
+          });
+          const result = await response.json().catch(() => ({}));
+          if (response.ok && result.success) {
+            isSent = true;
+            replyMessage =
+              result.message || 'Your message has been transmitted successfully! I will reply shortly.';
+          }
+        } catch {
+          // Local endpoint not answering, fall through to FormSubmit
+        }
+      }
 
-      if (response.ok && result.success) {
-        setSuccessMessage(
-          result.message || 'Your message has been transmitted successfully! I will reply shortly.'
-        );
-        // Reset form ONLY on successful delivery
+      // 2. On static GitHub Pages deployment, transmit via FormSubmit AJAX service
+      if (!isSent) {
+        try {
+          const formSubmitResponse = await fetch('https://formsubmit.co/ajax/ssrahman2002@gmail.com', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json',
+            },
+            body: JSON.stringify({
+              name: formData.name,
+              email: formData.email,
+              phone: formData.phone || 'N/A',
+              message: formData.message,
+              _subject: `New Portfolio Inquiry from ${formData.name}`,
+              _template: 'table',
+            }),
+          });
+
+          const fsResult = await formSubmitResponse.json().catch(() => ({}));
+          if (
+            formSubmitResponse.ok &&
+            (fsResult.success === 'true' || fsResult.success === true)
+          ) {
+            isSent = true;
+            replyMessage =
+              'Your message has been transmitted successfully! I will reply shortly.';
+          } else if (fsResult.message && fsResult.message.includes('Activation')) {
+            // Activation notice (FormSubmit sends a one-time activation link to email)
+            isSent = true;
+            replyMessage =
+              'Your message has been sent! (Note: Check ssrahman2002@gmail.com to complete one-time activation).';
+          }
+        } catch (fsErr) {
+          console.warn('FormSubmit transmission fallback:', fsErr);
+        }
+      }
+
+      if (isSent) {
+        setSuccessMessage(replyMessage);
+        // Reset form on successful delivery
         setFormData({
           name: '',
           email: '',
@@ -135,8 +185,8 @@ export const ContactView: React.FC<ContactViewProps> = ({ onBack }) => {
           _hp: '',
         });
         setWordLimitWarning(null);
-      } else if (response.status === 404) {
-        // Graceful fallback for static environments (GitHub Pages)
+      } else {
+        // 3. Guaranteed fallback: launch email client prefilled
         const subject = encodeURIComponent(`Portfolio Inquiry from ${formData.name}`);
         const bodyText = encodeURIComponent(
           `Name: ${formData.name}\nEmail: ${formData.email}\nPhone: ${formData.phone || 'N/A'}\n\nMessage:\n${formData.message}`
@@ -145,16 +195,9 @@ export const ContactView: React.FC<ContactViewProps> = ({ onBack }) => {
         setSuccessMessage(
           'Connecting to email... Opening your email app to transmit directly to ssrahman2002@gmail.com.'
         );
-      } else {
-        // Preserve entered user data on recoverable error
-        setErrorMessage(
-          result.error ||
-            'Submission could not be completed. Your data has been preserved. Please try again or email directly to ssrahman2002@gmail.com.'
-        );
       }
     } catch (err: unknown) {
       console.error('Contact transmission fallback:', err);
-      // Graceful fallback for network/offline/static environments
       const subject = encodeURIComponent(`Portfolio Inquiry from ${formData.name}`);
       const bodyText = encodeURIComponent(
         `Name: ${formData.name}\nEmail: ${formData.email}\nPhone: ${formData.phone || 'N/A'}\n\nMessage:\n${formData.message}`
