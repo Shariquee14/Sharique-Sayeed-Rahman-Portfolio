@@ -12,6 +12,7 @@ import { ContactView } from './components/views/ContactView';
 import { ProjectsView } from './components/views/ProjectsView';
 import { SportsView } from './components/views/SportsView';
 import { SkillsView } from './components/views/SkillsView';
+import { YouTubeView } from './components/views/YouTubeView';
 import { HERO_CARDS } from './data/portfolioData';
 
 export function App() {
@@ -36,6 +37,8 @@ export function App() {
         return 'SPORTS & ACHIEVEMENTS';
       case '/skills-education':
         return 'SKILLS & EDUCATION';
+      case '/youtube':
+        return 'YOUTUBE // SHARIQLOGZ';
       default:
         return null;
     }
@@ -184,6 +187,17 @@ export function App() {
           <Route
             path="/skills-education"
             element={<SkillsView onBack={() => navigate('/')} />}
+          />
+
+          {/* 7. DEDICATED /youtube VIEW */}
+          <Route
+            path="/youtube"
+            element={
+              <YouTubeView
+                onBack={() => navigate('/')}
+                onOpenContact={() => navigate('/contact')}
+              />
+            }
           />
 
           {/* Fallback redirect */}

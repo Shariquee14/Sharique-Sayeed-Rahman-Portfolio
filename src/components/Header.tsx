@@ -98,6 +98,14 @@ export const Header: React.FC<HeaderProps> = ({ activeView, onBack }) => {
           SKILLS / EDUCATION
         </button>
         <button
+          onClick={() => navigate('/youtube')}
+          className={`hover:text-neutral-950 dark:hover:text-white transition-colors cursor-pointer uppercase ${
+            location.pathname === '/youtube' ? 'text-neutral-950 dark:text-white font-bold' : ''
+          }`}
+        >
+          YOUTUBE
+        </button>
+        <button
           onClick={() => navigate('/contact')}
           className={`hover:text-neutral-950 dark:hover:text-white transition-colors cursor-pointer uppercase ${
             location.pathname === '/contact' ? 'text-neutral-950 dark:text-white font-bold' : ''
@@ -178,6 +186,7 @@ export const Header: React.FC<HeaderProps> = ({ activeView, onBack }) => {
                 { label: 'PROJECT', path: '/projects', action: () => navigate('/projects') },
                 { label: 'SPORTS', path: '/achievements', action: () => navigate('/achievements') },
                 { label: 'SKILLS / EDUCATION', path: '/skills-education', action: () => navigate('/skills-education') },
+                { label: 'YOUTUBE', path: '/youtube', action: () => navigate('/youtube') },
                 { label: 'CONTACT', path: '/contact', action: () => navigate('/contact') },
               ].map((item) => {
                 const isActive = location.pathname === item.path;
