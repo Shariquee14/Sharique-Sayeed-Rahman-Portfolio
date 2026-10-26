@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "sync:youtube": "node scripts/fetch-youtube.js",
+    "build": "node scripts/fetch-youtube.js && tsc -b && vite build",
     "lint": "oxlint",
     "preview": "vite preview"
   },

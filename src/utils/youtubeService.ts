@@ -8,9 +8,101 @@ export const CHANNEL_INFO: YouTubeChannelInfo = {
   description: 'AI Video Creation, Tech Tutorials, Creative AI Tools & Digital Innovation',
 };
 
-// Verified baseline catalog of real videos from @Shariqlogz
+// Verified baseline catalog of real videos from @Shariqlogz (updated with all published uploads)
 export const BASELINE_VIDEOS: YouTubeVideo[] = [
+  // Long Videos (16:9)
+  {
+    id: 'ZkgtoruyoLI',
+    title: 'GitHub Ko VS Code Se Connect Kaise Kare? 🔗 Windows Step by Step (2 Min) | Hindi 2026 | ShariqLogz',
+    url: 'https://www.youtube.com/watch?v=ZkgtoruyoLI',
+    thumbnailUrl: 'https://i.ytimg.com/vi/ZkgtoruyoLI/hqdefault.jpg',
+    publishedAt: '2026-10-26T13:30:09Z',
+    formattedDate: 'Oct 26, 2026',
+    isShort: false,
+    type: 'long',
+  },
+  {
+    id: 'mGSp7FxM3SU',
+    title: 'Git, VS Code aur Python Install Kaise Kare? 💻 Windows Step by Step (2 Min) | Hindi 2026 | ShariqLogz',
+    url: 'https://www.youtube.com/watch?v=mGSp7FxM3SU',
+    thumbnailUrl: 'https://i.ytimg.com/vi/mGSp7FxM3SU/hqdefault.jpg',
+    publishedAt: '2026-10-26T12:30:33Z',
+    formattedDate: 'Oct 26, 2026',
+    isShort: false,
+    type: 'long',
+  },
+  {
+    id: 'og5gefBDNyo',
+    title: 'How to Create GitHub Account in Hindi | Complete Signup Tutorial 2026 | ShariqLogz',
+    url: 'https://www.youtube.com/watch?v=og5gefBDNyo',
+    thumbnailUrl: 'https://i.ytimg.com/vi/og5gefBDNyo/hqdefault.jpg',
+    publishedAt: '2026-10-25T12:00:00Z',
+    formattedDate: 'Oct 25, 2026',
+    isShort: false,
+    type: 'long',
+  },
+  {
+    id: 'RU8a6Beg7mY',
+    title: 'How to Create an AI Talking Avatar | Help of ChatGPT + Flow Ai | Full Tutorial for Beginners',
+    url: 'https://www.youtube.com/watch?v=RU8a6Beg7mY',
+    thumbnailUrl: 'https://i.ytimg.com/vi/RU8a6Beg7mY/hqdefault.jpg',
+    publishedAt: '2026-10-10T17:00:00Z',
+    formattedDate: 'Oct 10, 2026',
+    isShort: false,
+    type: 'long',
+  },
+  {
+    id: '76cQ2hRgCLk',
+    title: 'AI & Technology Can Do More Than You Think || How AI Makes Daily Life Easy || ShariqLogz',
+    url: 'https://www.youtube.com/watch?v=76cQ2hRgCLk',
+    thumbnailUrl: 'https://i.ytimg.com/vi/76cQ2hRgCLk/hqdefault.jpg',
+    publishedAt: '2026-09-18T16:30:00Z',
+    formattedDate: 'Sep 18, 2026',
+    isShort: false,
+    type: 'long',
+  },
+
   // Shorts (9:16)
+  {
+    id: 'Yqa9LJeW7OA',
+    title: 'Meta Ads Course Day 3: Ad Account Kaise Banaye + Payment Kaise Add Kare 💳 | ShariqLogz | #shorts',
+    url: 'https://www.youtube.com/shorts/Yqa9LJeW7OA',
+    thumbnailUrl: 'https://i.ytimg.com/vi/Yqa9LJeW7OA/hqdefault.jpg',
+    publishedAt: '2026-10-26T13:00:37Z',
+    formattedDate: 'Oct 26, 2026',
+    isShort: true,
+    type: 'short',
+  },
+  {
+    id: '9_htJXroTTw',
+    title: 'Meta Ads Day 2/30: Business Manager Setup Kaise Kare? 🚀 #shorts | ShariqLogz | #metaads',
+    url: 'https://www.youtube.com/shorts/9_htJXroTTw',
+    thumbnailUrl: 'https://i.ytimg.com/vi/9_htJXroTTw/hqdefault.jpg',
+    publishedAt: '2026-10-25T12:30:16Z',
+    formattedDate: 'Oct 25, 2026',
+    isShort: true,
+    type: 'short',
+  },
+  {
+    id: 'W7JNUWSlzNw',
+    title: 'GitHub ki 4 Secret URL Tricks 🤯 Koi Nahi Batata! #shorts | ShariqLogz | #ai #git #github',
+    url: 'https://www.youtube.com/shorts/W7JNUWSlzNw',
+    thumbnailUrl: 'https://i.ytimg.com/vi/W7JNUWSlzNw/hqdefault.jpg',
+    publishedAt: '2026-10-24T14:00:00Z',
+    formattedDate: 'Oct 24, 2026',
+    isShort: true,
+    type: 'short',
+  },
+  {
+    id: 'qUD0K6T3nrE',
+    title: 'Meta Ads Kya Hai? 🔥 Sirf ₹100 Se Start Karo | Day 1/30 | ShariqLogz | #ai #shorts #meta',
+    url: 'https://www.youtube.com/shorts/qUD0K6T3nrE',
+    thumbnailUrl: 'https://i.ytimg.com/vi/qUD0K6T3nrE/hqdefault.jpg',
+    publishedAt: '2026-10-24T12:00:00Z',
+    formattedDate: 'Oct 24, 2026',
+    isShort: true,
+    type: 'short',
+  },
   {
     id: 'K0eLHpj1VpE',
     title: '6 Skills You Can Learn on Your Phone in 30 Minutes a Day | #shorts | Shariqlogz | #ai #tech',
@@ -101,135 +193,10 @@ export const BASELINE_VIDEOS: YouTubeVideo[] = [
     isShort: true,
     type: 'short',
   },
-  // Long Videos (16:9)
-  {
-    id: 'RU8a6Beg7mY',
-    title: 'How to Create an AI Talking Avatar | Help of ChatGPT + Flow Ai | Full Tutorial for Beginners',
-    url: 'https://www.youtube.com/watch?v=RU8a6Beg7mY',
-    thumbnailUrl: 'https://i.ytimg.com/vi/RU8a6Beg7mY/hqdefault.jpg',
-    publishedAt: '2026-10-10T17:00:00Z',
-    formattedDate: 'Oct 10, 2026',
-    isShort: false,
-    type: 'long',
-  },
-  {
-    id: '76cQ2hRgCLk',
-    title: 'AI & Technology Can Do More Than You Think || How AI Makes Daily Life Easy || ShariqLogz',
-    url: 'https://www.youtube.com/watch?v=76cQ2hRgCLk',
-    thumbnailUrl: 'https://i.ytimg.com/vi/76cQ2hRgCLk/hqdefault.jpg',
-    publishedAt: '2026-09-18T16:30:00Z',
-    formattedDate: 'Sep 18, 2026',
-    isShort: false,
-    type: 'long',
-  },
 ];
 
-const CACHE_KEY = 'shariqlogz_youtube_videos_v1';
-const CACHE_EXPIRY_MS = 30 * 60 * 1000; // 30 minutes
-
-function formatDate(isoString: string): string {
-  try {
-    const d = new Date(isoString);
-    if (isNaN(d.getTime())) return 'Recent';
-    return d.toLocaleDateString('en-US', {
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric',
-    });
-  } catch {
-    return 'Recent';
-  }
-}
-
-/**
- * Parses XML feed returned by YouTube Atom RSS
- */
-export function parseYouTubeXml(xmlString: string): YouTubeVideo[] {
-  const videos: YouTubeVideo[] = [];
-
-  if (typeof window !== 'undefined' && window.DOMParser) {
-    try {
-      const parser = new DOMParser();
-      const xmlDoc = parser.parseFromString(xmlString, 'text/xml');
-      const entries = xmlDoc.getElementsByTagName('entry');
-
-      for (let i = 0; i < entries.length; i++) {
-        const entry = entries[i];
-        const videoId =
-          entry.getElementsByTagName('yt:videoId')[0]?.textContent ||
-          entry.getElementsByTagName('videoId')[0]?.textContent ||
-          '';
-
-        if (!videoId) continue;
-
-        const title = entry.getElementsByTagName('title')[0]?.textContent || 'Untitled Video';
-        const linkEl = entry.getElementsByTagName('link')[0];
-        const linkHref = linkEl ? linkEl.getAttribute('href') || '' : '';
-        const publishedAt = entry.getElementsByTagName('published')[0]?.textContent || new Date().toISOString();
-
-        // Accurate classification:
-        // YouTube RSS feed specifies https://www.youtube.com/shorts/... in link.href for Shorts
-        // Also check #shorts in title/tags
-        const isShort =
-          linkHref.includes('/shorts/') ||
-          title.toLowerCase().includes('#shorts') ||
-          title.toLowerCase().includes('#short');
-
-        const canonicalUrl = isShort
-          ? `https://www.youtube.com/shorts/${videoId}`
-          : `https://www.youtube.com/watch?v=${videoId}`;
-
-        const thumbnailUrl = `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
-
-        videos.push({
-          id: videoId,
-          title: title.trim(),
-          url: canonicalUrl,
-          thumbnailUrl,
-          publishedAt,
-          formattedDate: formatDate(publishedAt),
-          isShort,
-          type: isShort ? 'short' : 'long',
-        });
-      }
-
-      if (videos.length > 0) return videos;
-    } catch (e) {
-      console.warn('DOMParser failed on YouTube XML, falling back to regex:', e);
-    }
-  }
-
-  // Regex fallback parser
-  const entryMatches = xmlString.split('<entry>');
-  for (let i = 1; i < entryMatches.length; i++) {
-    const block = entryMatches[i];
-    const idMatch = block.match(/<yt:videoId>([^<]+)<\/yt:videoId>/) || block.match(/<videoId>([^<]+)<\/videoId>/);
-    const titleMatch = block.match(/<title>([^<]+)<\/title>/);
-    const linkMatch = block.match(/<link[^>]+href=["']([^"']+)["']/);
-    const pubMatch = block.match(/<published>([^<]+)<\/published>/);
-
-    if (idMatch && idMatch[1]) {
-      const videoId = idMatch[1].trim();
-      const title = titleMatch ? titleMatch[1].trim() : 'Video';
-      const linkHref = linkMatch ? linkMatch[1] : '';
-      const publishedAt = pubMatch ? pubMatch[1] : new Date().toISOString();
-      const isShort = linkHref.includes('/shorts/') || title.toLowerCase().includes('#shorts');
-
-      videos.push({
-        id: videoId,
-        title,
-        url: isShort ? `https://www.youtube.com/shorts/${videoId}` : `https://www.youtube.com/watch?v=${videoId}`,
-        thumbnailUrl: `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`,
-        publishedAt,
-        formattedDate: formatDate(publishedAt),
-        isShort,
-        type: isShort ? 'short' : 'long',
-      });
-    }
-  }
-
-  return videos;
-}
+const CACHE_KEY = 'shariqlogz_youtube_videos_v2';
+const CACHE_EXPIRY_MS = 15 * 60 * 1000; // 15 minutes
 
 export interface FetchVideosResult {
   shorts: YouTubeVideo[];
@@ -240,7 +207,72 @@ export interface FetchVideosResult {
 }
 
 export async function fetchChannelVideos(forceRefresh = false): Promise<FetchVideosResult> {
-  // 1. Check cached data if not forcing refresh
+  // 1. In Local Development: Try local Vite dev middleware /api/youtube-feed (queries live YouTube directly)
+  if (typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) {
+    try {
+      const devRes = await fetch('/api/youtube-feed', { signal: AbortSignal.timeout(4000) });
+      if (devRes.ok) {
+        const data = await devRes.json();
+        if (data.success && Array.isArray(data.videos) && data.videos.length > 0) {
+          const videos: YouTubeVideo[] = data.videos;
+          return {
+            shorts: videos.filter((v) => v.isShort),
+            longVideos: videos.filter((v) => !v.isShort),
+            source: 'live',
+            lastUpdated: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+          };
+        }
+      }
+    } catch {
+      // Dev proxy not available, continue to static synchronized catalog
+    }
+  }
+
+  // 2. Production & Static Hosting: Fetch the automated static catalog ./data/youtube.json
+  // This JSON is automatically kept in sync with the YouTube channel by GitHub Actions scheduled workflow
+  try {
+    const cacheBuster = forceRefresh ? `?t=${Date.now()}` : '';
+    const base = import.meta.env.BASE_URL || './';
+    const catalogUrl = `${base.endsWith('/') ? base : base + '/'}data/youtube.json${cacheBuster}`;
+    const staticRes = await fetch(catalogUrl, {
+      cache: forceRefresh ? 'no-cache' : 'default',
+      signal: AbortSignal.timeout(5000),
+    });
+
+    if (staticRes.ok) {
+      const catalog = await staticRes.json();
+      if (catalog && Array.isArray(catalog.videos) && catalog.videos.length > 0) {
+        const videos: YouTubeVideo[] = catalog.videos;
+        const lastSyncLabel = catalog.formattedLastSync ||
+          new Date(catalog.lastSynced).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+        // Update localStorage cache
+        try {
+          localStorage.setItem(
+            CACHE_KEY,
+            JSON.stringify({
+              timestamp: Date.now(),
+              videos,
+              lastSynced: lastSyncLabel,
+            })
+          );
+        } catch {
+          // Ignore localStorage errors
+        }
+
+        return {
+          shorts: videos.filter((v) => v.isShort),
+          longVideos: videos.filter((v) => !v.isShort),
+          source: 'live',
+          lastUpdated: lastSyncLabel,
+        };
+      }
+    }
+  } catch (catalogErr) {
+    console.warn('[YouTube Service] Could not fetch ./data/youtube.json:', catalogErr);
+  }
+
+  // 3. Fallback to localStorage cache if fresh
   if (!forceRefresh && typeof window !== 'undefined') {
     try {
       const rawCache = localStorage.getItem(CACHE_KEY);
@@ -253,7 +285,7 @@ export async function fetchChannelVideos(forceRefresh = false): Promise<FetchVid
               shorts: allVideos.filter((v) => v.isShort),
               longVideos: allVideos.filter((v) => !v.isShort),
               source: 'cache',
-              lastUpdated: new Date(parsed.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+              lastUpdated: parsed.lastSynced || new Date(parsed.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
             };
           }
         }
@@ -263,112 +295,11 @@ export async function fetchChannelVideos(forceRefresh = false): Promise<FetchVid
     }
   }
 
-  let fetchedVideos: YouTubeVideo[] | null = null;
-  let fetchError: string | undefined;
-
-  // 2. Try Local dev server proxy /api/youtube-feed (fastest, zero CORS issues in development)
-  try {
-    const localRes = await fetch('/api/youtube-feed', { signal: AbortSignal.timeout(4000) });
-    if (localRes.ok) {
-      const data = await localRes.json();
-      if (data.success && Array.isArray(data.videos) && data.videos.length > 0) {
-        fetchedVideos = data.videos;
-      }
-    }
-  } catch {
-    // Local proxy not available, proceed to public CORS proxy
-  }
-
-  // 3. Try YouTube Data API v3 if user provided VITE_YOUTUBE_API_KEY
-  if (!fetchedVideos) {
-    const apiKey = import.meta.env.VITE_YOUTUBE_API_KEY;
-    if (apiKey) {
-      try {
-        const apiUrl = `https://www.googleapis.com/youtube/v3/search?key=${apiKey}&channelId=${CHANNEL_INFO.channelId}&part=snippet,id&order=date&maxResults=50`;
-        const apiRes = await fetch(apiUrl, { signal: AbortSignal.timeout(5000) });
-        if (apiRes.ok) {
-          const apiData = await apiRes.json();
-          if (apiData.items && Array.isArray(apiData.items)) {
-            fetchedVideos = apiData.items
-              .filter((item: any) => item.id?.kind === 'youtube#video')
-              .map((item: any) => {
-                const id = item.id.videoId;
-                const title = item.snippet.title;
-                const isShort = title.toLowerCase().includes('#shorts') || title.toLowerCase().includes('#short');
-                return {
-                  id,
-                  title,
-                  url: isShort ? `https://www.youtube.com/shorts/${id}` : `https://www.youtube.com/watch?v=${id}`,
-                  thumbnailUrl: item.snippet.thumbnails?.high?.url || `https://i.ytimg.com/vi/${id}/hqdefault.jpg`,
-                  publishedAt: item.snippet.publishedAt,
-                  formattedDate: formatDate(item.snippet.publishedAt),
-                  isShort,
-                  type: isShort ? 'short' : 'long',
-                };
-              });
-          }
-        }
-      } catch (e: any) {
-        console.warn('YouTube Data API error:', e);
-      }
-    }
-  }
-
-  // 4. Try public CORS proxy for live Atom RSS feed
-  if (!fetchedVideos) {
-    const feedUrl = `https://www.youtube.com/feeds/videos.xml?channel_id=${CHANNEL_INFO.channelId}`;
-    const proxyEndpoints = [
-      `https://api.allorigins.win/raw?url=${encodeURIComponent(feedUrl)}`,
-      `https://corsproxy.io/?url=${encodeURIComponent(feedUrl)}`,
-    ];
-
-    for (const endpoint of proxyEndpoints) {
-      try {
-        const proxyRes = await fetch(endpoint, { signal: AbortSignal.timeout(6000) });
-        if (proxyRes.ok) {
-          const xmlText = await proxyRes.text();
-          if (xmlText && xmlText.includes('<feed')) {
-            const parsed = parseYouTubeXml(xmlText);
-            if (parsed.length > 0) {
-              fetchedVideos = parsed;
-              break;
-            }
-          }
-        }
-      } catch {
-        // Continue to next proxy
-      }
-    }
-  }
-
-  // 5. If live fetch succeeded, update cache and return
-  if (fetchedVideos && fetchedVideos.length > 0) {
-    try {
-      localStorage.setItem(
-        CACHE_KEY,
-        JSON.stringify({
-          timestamp: Date.now(),
-          videos: fetchedVideos,
-        })
-      );
-    } catch {
-      // Quota exceeded or private browsing
-    }
-
-    return {
-      shorts: fetchedVideos.filter((v) => v.isShort),
-      longVideos: fetchedVideos.filter((v) => !v.isShort),
-      source: 'live',
-      lastUpdated: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-    };
-  }
-
-  // 6. Resilient Fallback: Use verified baseline videos from ShariqLogz
+  // 4. Guaranteed Offline Fallback: Use verified baseline catalog with all channel videos
   return {
     shorts: BASELINE_VIDEOS.filter((v) => v.isShort),
     longVideos: BASELINE_VIDEOS.filter((v) => !v.isShort),
     source: 'baseline',
     lastUpdated: 'Live sync standby',
-    error: fetchError || 'Network feed busy. Showing cached catalog.',
   };
 }
