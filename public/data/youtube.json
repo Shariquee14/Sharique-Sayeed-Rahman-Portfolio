@@ -2,12 +2,32 @@
   "channelId": "UC2cuJbYZ1LE72OhUs52LZHA",
   "channelName": "ShariqLogz",
   "channelUrl": "https://www.youtube.com/@Shariqlogz",
-  "lastSynced": "2026-10-27T11:44:23.088Z",
-  "formattedLastSync": "05:14 PM IST",
-  "totalVideos": 15,
-  "shortsCount": 11,
-  "longCount": 4,
+  "lastSynced": "2026-10-27T17:38:00.905Z",
+  "formattedLastSync": "11:08 PM IST",
+  "totalVideos": 17,
+  "shortsCount": 12,
+  "longCount": 5,
   "videos": [
+    {
+      "id": "1hDpGbjrjXk",
+      "title": "Meta Ads Day 4: Campaign Objective Kaise Chunein? 🎯 Galat Objective = Galat Result | ShariqLogz",
+      "url": "https://www.youtube.com/shorts/1hDpGbjrjXk",
+      "thumbnailUrl": "https://i.ytimg.com/vi/1hDpGbjrjXk/hqdefault.jpg",
+      "publishedAt": "2026-10-27T13:00:15+00:00",
+      "formattedDate": "Oct 27, 2026",
+      "isShort": true,
+      "type": "short"
+    },
+    {
+      "id": "AqxqWgsGeDg",
+      "title": "GitHub Full Tutorial Part 2 🚀 New Repository Kaise Banaye + Code Push Kaise Kare (VS Code) | 2026",
+      "url": "https://www.youtube.com/watch?v=AqxqWgsGeDg",
+      "thumbnailUrl": "https://i.ytimg.com/vi/AqxqWgsGeDg/hqdefault.jpg",
+      "publishedAt": "2026-10-27T12:30:07+00:00",
+      "formattedDate": "Oct 27, 2026",
+      "isShort": false,
+      "type": "long"
+    },
     {
       "id": "ZkgtoruyoLI",
       "title": "GitHub Ko VS Code Se Connect Kaise Kare? 🔗 Windows Step by Step (2 Min) | Hindi 2026 | ShariqLogz",
