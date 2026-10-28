@@ -1,12 +1,10 @@
-export interface YouTubeVideo {
+export interface YouTubePlaylist {
   id: string;
   title: string;
-  url: string;
+  description: string;
+  itemCount: string;
   thumbnailUrl: string;
-  publishedAt: string;
-  formattedDate: string;
-  isShort: boolean;
-  type: 'short' | 'long';
+  url: string;
 }
 
 export interface YouTubeChannelInfo {
@@ -16,5 +14,5 @@ export interface YouTubeChannelInfo {
   url: string;
   description: string;
   subscriberCount?: string;
-  videoCount?: string;
+  playlistCount?: string;
 }

@@ -6,6 +6,30 @@ function contactApiPlugin(): Plugin {
   const setupMiddleware = (server: { middlewares: any }) => {
     server.middlewares.use(async (req: any, res: any, next: any) => {
       const url = req.url ? req.url.split('?')[0] : '';
+      if (url === '/api/youtube-playlists' && req.method === 'GET') {
+        try {
+          const fs = await import('node:fs');
+          const path = await import('node:path');
+          const dataFile = path.resolve(process.cwd(), 'public', 'data', 'youtube-playlists.json');
+          if (fs.existsSync(dataFile)) {
+            const data = fs.readFileSync(dataFile, 'utf-8');
+            res.statusCode = 200;
+            res.setHeader('Content-Type', 'application/json');
+            res.end(data);
+            return;
+          }
+          res.statusCode = 404;
+          res.setHeader('Content-Type', 'application/json');
+          res.end(JSON.stringify({ success: false, error: 'Playlists file not found' }));
+          return;
+        } catch (err: any) {
+          res.statusCode = 500;
+          res.setHeader('Content-Type', 'application/json');
+          res.end(JSON.stringify({ success: false, error: err.message }));
+          return;
+        }
+      }
+
       if (url === '/api/youtube-feed' && req.method === 'GET') {
         try {
           const feedRes = await fetch(

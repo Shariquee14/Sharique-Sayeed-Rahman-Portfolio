@@ -4,7 +4,7 @@ on:
   push:
     branches: ["main"]
   schedule:
-    # Run every 6 hours automatically to check for newly published YouTube videos
+    # Run every 6 hours automatically to check for new YouTube playlists
     - cron: '0 */6 * * *'
   workflow_dispatch:
 
@@ -38,19 +38,19 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Fetch and Sync YouTube Videos
+      - name: Fetch and Sync YouTube Playlists
         run: node scripts/fetch-youtube.js
 
       - name: Commit updated YouTube catalog if changed
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          if [ -n "$(git status --porcelain public/data/youtube.json)" ]; then
-            git add public/data/youtube.json
-            git commit -m "Auto-sync YouTube catalog [skip ci]" || echo "No changes to commit"
+          if [ -n "$(git status --porcelain public/data/youtube-playlists.json)" ]; then
+            git add public/data/youtube-playlists.json
+            git commit -m "Auto-sync YouTube playlists [skip ci]" || echo "No changes to commit"
             git push origin main || echo "Push skipped or already up-to-date"
           else
-            echo "No new YouTube videos detected."
+            echo "No new YouTube playlists detected."
           fi
 
       - name: Build site
