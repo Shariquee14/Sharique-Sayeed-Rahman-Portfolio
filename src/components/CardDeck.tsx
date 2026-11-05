@@ -9,6 +9,11 @@ interface CardDeckProps {
   activeAngle?: number;
 }
 
+// Base angles for the 7 cards around the elliptical arc
+// Card 0: Edits (-50°), Card 1: Projects (-33°), Card 2: Contact (-16°), Card 3: Me (0°), Card 4: Sports (+16°), Card 5: Skills (+33°), Card 6: YouTube (+50°)
+const BASE_ANGLES = [-50, -33, -16, 0, 16, 33, 50];
+const MOBILE_ANGLES = [0, -16, -33, -50, 16, 33, 50];
+
 export const CardDeck: React.FC<CardDeckProps> = ({ onHoverCard }) => {
   const navigate = useNavigate();
   const [hoveredCardId, setHoveredCardId] = useState<string | null>(null);
@@ -28,39 +33,50 @@ export const CardDeck: React.FC<CardDeckProps> = ({ onHoverCard }) => {
   const isMobile = windowWidth < 640;
   const isTablet = windowWidth >= 640 && windowWidth < 1024;
 
+  // Strictly Mobile-Only card display order: About Me first, followed by remaining cards in their existing sequence
+  const MOBILE_HERO_CARDS = [
+    HERO_CARDS.find((c) => c.id === 'me')!,
+    HERO_CARDS.find((c) => c.id === 'edits')!,
+    HERO_CARDS.find((c) => c.id === 'projects')!,
+    HERO_CARDS.find((c) => c.id === 'contact')!,
+    HERO_CARDS.find((c) => c.id === 'sports')!,
+    HERO_CARDS.find((c) => c.id === 'skills')!,
+    HERO_CARDS.find((c) => c.id === 'youtube')!,
+  ];
+
+  const activeCards = isMobile ? MOBILE_HERO_CARDS : HERO_CARDS;
+
   // Expanded radiusX ensures cards breathe and titles never get covered
   // Mobile uses viewport-aware radius to prevent edge overflow on narrow screens
-  const radiusX = isMobile ? Math.min(160, Math.max(125, (windowWidth - 48) * 0.42)) : isTablet ? 380 : 520;
-  const radiusY = isMobile ? 32 : isTablet ? 50 : 66;
-  const cardScaleBase = isMobile ? 0.75 : isTablet ? 0.88 : 1.0;
+  const radiusX = isMobile ? Math.min(160, Math.max(125, (windowWidth - 48) * 0.42)) : isTablet ? 440 : 580;
+  const radiusY = isMobile ? 32 : isTablet ? 54 : 72;
+  const cardScaleBase = isMobile ? 0.72 : isTablet ? 0.84 : 0.96;
 
-  // Base angles for the 5 cards around the elliptical arc
-  // Card 0: Projects (-46°), Card 1: Contact (-23°), Card 2: Me (0°), Card 3: Sports (+23°), Card 4: Skills (+46°)
-  const baseAngles = [-46, -23, 0, 23, 46];
-  const swayAmplitude = isMobile ? 3.0 : 4.8; // subtle, steady orbital sway
+  const swayAmplitude = isMobile ? 2.5 : 4.0; // subtle, steady orbital sway
 
-  // Mobile sequential animation index (Projects -> Contact Us -> About -> Achievements -> Skills)
+  // Mobile sequential animation index: starts at 0 (About Me card first)
   const [mobileSeqIndex, setMobileSeqIndex] = useState<number>(0);
 
-  // Mobile sequential card cycling timer (cycles through 5 cards with foreground pause)
+  // Mobile sequential card cycling timer (cycles through 7 cards with foreground pause)
   useEffect(() => {
     if (!isMobile || shouldReduceMotion) return;
 
     const interval = setInterval(() => {
-      setMobileSeqIndex((prev) => (prev + 1) % HERO_CARDS.length);
+      setMobileSeqIndex((prev) => (prev + 1) % activeCards.length);
     }, 2600);
 
     return () => clearInterval(interval);
-  }, [isMobile, shouldReduceMotion]);
+  }, [isMobile, shouldReduceMotion, activeCards.length]);
 
   // Synchronize active card text and needle with mobile sequential card
   useEffect(() => {
     if (!isMobile) return;
-    const currentCard = HERO_CARDS[mobileSeqIndex];
+    const currentCard = activeCards[mobileSeqIndex];
     if (currentCard) {
-      onHoverCard(currentCard.title, baseAngles[mobileSeqIndex] * 0.55, currentCard.id);
+      const angle = isMobile ? MOBILE_ANGLES[mobileSeqIndex] : BASE_ANGLES[mobileSeqIndex];
+      onHoverCard(currentCard.title, angle * 0.55, currentCard.id);
     }
-  }, [isMobile, mobileSeqIndex, onHoverCard]);
+  }, [isMobile, mobileSeqIndex, onHoverCard, activeCards]);
 
   // Touch swipe support for mobile
   const touchStartXRef = useRef<number | null>(null);
@@ -77,10 +93,10 @@ export const CardDeck: React.FC<CardDeckProps> = ({ onHoverCard }) => {
     if (Math.abs(diff) > 40) {
       if (diff > 0) {
         // Swipe right -> previous card in sequence
-        setMobileSeqIndex((prev) => (prev - 1 + HERO_CARDS.length) % HERO_CARDS.length);
+        setMobileSeqIndex((prev) => (prev - 1 + activeCards.length) % activeCards.length);
       } else {
         // Swipe left -> next card in sequence
-        setMobileSeqIndex((prev) => (prev + 1) % HERO_CARDS.length);
+        setMobileSeqIndex((prev) => (prev + 1) % activeCards.length);
       }
     }
     touchStartXRef.current = null;
@@ -93,8 +109,8 @@ export const CardDeck: React.FC<CardDeckProps> = ({ onHoverCard }) => {
     const y = radiusY * (1 - Math.cos(rad));
     const z = -100 * (1 - Math.cos(rad));
     const scale = cardScaleBase * (1 - 0.12 * (1 - Math.cos(rad)));
-    const rotateZ = angleDeg * 0.48; // restrained rotation keeps cards upright and readable
-    const rotateY = -angleDeg * 0.22;
+    const rotateZ = angleDeg * 0.46; // restrained rotation keeps cards upright and readable
+    const rotateY = -angleDeg * 0.20;
 
     return { x, y, z, scale, rotateZ, rotateY };
   };
@@ -103,23 +119,17 @@ export const CardDeck: React.FC<CardDeckProps> = ({ onHoverCard }) => {
     navigate(route);
   };
 
-  // Mobile navigation row items (exact 5 destinations)
-  const MOBILE_NAV_ITEMS = [
-    { label: 'Projects', route: '/projects', id: 'projects', index: 0 },
-    { label: 'Contact Us', route: '/contact', id: 'contact', index: 1 },
-    { label: 'About', route: '/about', id: 'me', index: 2 },
-    { label: 'Achievements', route: '/achievements', id: 'sports', index: 3 },
-    { label: 'Skills', route: '/skills-education', id: 'skills', index: 4 },
-  ];
-
-  // Mobile layout spacing and natural background fan slots
-  const mobileSpread = Math.min(68, Math.max(54, (windowWidth - 48) * 0.18));
+  // Mobile layout spacing and natural background fan slots (7 cards in MOBILE_HERO_CARDS order)
+  // Index 0: About (Me) at center, followed by remaining cards fanning outward
+  const mobileSpread = Math.min(50, Math.max(38, (windowWidth - 48) * 0.14));
   const mobileHomeSlots = [
-    { x: -mobileSpread * 2, y: 16, scale: 0.68, rotateZ: -14, zIndex: 10, brightness: 'brightness-[0.88]' }, // Projects
-    { x: -mobileSpread,     y: 8,  scale: 0.74, rotateZ: -7,  zIndex: 20, brightness: 'brightness-[0.94]' }, // Contact Us
-    { x: 0,                 y: 2,  scale: 0.78, rotateZ: 0,   zIndex: 25, brightness: 'brightness-[0.94]' }, // About
-    { x: mobileSpread,      y: 8,  scale: 0.74, rotateZ: 7,   zIndex: 20, brightness: 'brightness-[0.94]' }, // Achievements
-    { x: mobileSpread * 2,  y: 16, scale: 0.68, rotateZ: 14,  zIndex: 10, brightness: 'brightness-[0.88]' }, // Skills
+    { x: 0,                 y: 2,  scale: 0.78, rotateZ: 0,   brightness: 'brightness-[0.96]' }, // Index 0: About (Me)
+    { x: -mobileSpread,     y: 8,  scale: 0.74, rotateZ: -6,  brightness: 'brightness-[0.94]' }, // Index 1: Edits
+    { x: -mobileSpread * 2, y: 15, scale: 0.68, rotateZ: -12, brightness: 'brightness-[0.88]' }, // Index 2: Projects
+    { x: -mobileSpread * 3, y: 22, scale: 0.62, rotateZ: -18, brightness: 'brightness-[0.82]' }, // Index 3: Contact Us
+    { x: mobileSpread,      y: 8,  scale: 0.74, rotateZ: 6,   brightness: 'brightness-[0.94]' }, // Index 4: Achievements
+    { x: mobileSpread * 2,  y: 15, scale: 0.68, rotateZ: 12,  brightness: 'brightness-[0.88]' }, // Index 5: Skills
+    { x: mobileSpread * 3,  y: 22, scale: 0.62, rotateZ: 18,  brightness: 'brightness-[0.82]' }, // Index 6: YouTube
   ];
 
   return (
@@ -134,10 +144,10 @@ export const CardDeck: React.FC<CardDeckProps> = ({ onHoverCard }) => {
         style={{ transformStyle: isMobile ? 'flat' : 'preserve-3d' }}
         className="relative w-full h-full flex items-center justify-center pointer-events-auto"
       >
-        {HERO_CARDS.map((card, index) => {
+        {activeCards.map((card, index) => {
           const isHovered = hoveredCardId === card.id;
           const isMobileActive = isMobile && mobileSeqIndex === index;
-          const baseAngle = baseAngles[index];
+          const baseAngle = BASE_ANGLES[index];
 
           // Compute orbital sway keyframes for desktop
           const pNeutral = getOrbitalCoordinates(baseAngle);
@@ -145,16 +155,16 @@ export const CardDeck: React.FC<CardDeckProps> = ({ onHoverCard }) => {
           const pLeft = getOrbitalCoordinates(baseAngle - swayAmplitude);
 
           // Subtle staggered floating breathing offset (Desktop)
-          const floatOffset = [0, -5, 0, 5, 0];
+          const floatOffset = [0, -4, 0, 4, 0, -4, 0];
 
           // Z-index: On mobile, active foreground card is strictly on top (70).
-          // Resting background cards: center is 25, inner sides 20, outer sides 10.
-          // On desktop: center portrait is 40, adjacent 30, outer 20, hover is 100.
-          const baseZDesktop = index === 2 ? 40 : index === 1 || index === 3 ? 30 : 20;
+          // Background cards follow the sequential order behind it.
+          // On desktop: center portrait (index 3) is 40, adjacent 30, outer 20, outermost 10, hover is 100.
+          const baseZDesktop = index === 3 ? 40 : index === 2 || index === 4 ? 30 : index === 1 || index === 5 ? 20 : 10;
           const zIndex = isMobile
             ? isMobileActive
               ? 70
-              : mobileHomeSlots[index].zIndex
+              : 60 - ((index - mobileSeqIndex + activeCards.length) % activeCards.length) * 7
             : isHovered
               ? 100
               : baseZDesktop;
@@ -229,9 +239,9 @@ export const CardDeck: React.FC<CardDeckProps> = ({ onHoverCard }) => {
                         x: [pNeutral.x, pRight.x, pNeutral.x, pLeft.x, pNeutral.x],
                         y: [
                           pNeutral.y + floatOffset[index],
-                          pRight.y + floatOffset[(index + 1) % 5],
+                          pRight.y + floatOffset[(index + 1) % 7],
                           pNeutral.y + floatOffset[index],
-                          pLeft.y + floatOffset[(index + 2) % 5],
+                          pLeft.y + floatOffset[(index + 2) % 7],
                           pNeutral.y + floatOffset[index],
                         ],
                         scale: [
@@ -332,42 +342,6 @@ export const CardDeck: React.FC<CardDeckProps> = ({ onHoverCard }) => {
             </motion.div>
           );
         })}
-      </div>
-
-      {/* Mobile Navigation Row Directly Beneath Cards (sm:hidden) */}
-      <div className="sm:hidden absolute bottom-0.5 left-0 right-0 flex items-center justify-center pointer-events-auto z-40 px-2">
-        <nav
-          aria-label="Mobile portfolio navigation"
-          className="flex items-center justify-center flex-nowrap gap-x-1 xs:gap-x-1.5 py-1.5 px-3 rounded-full bg-white/92 dark:bg-neutral-900/92 backdrop-blur-md border border-neutral-300/80 dark:border-neutral-800 shadow-md max-w-full overflow-x-auto scrollbar-none"
-        >
-          {MOBILE_NAV_ITEMS.map((item, i) => {
-            const isActive = mobileSeqIndex === i;
-            return (
-              <React.Fragment key={item.id}>
-                {i > 0 && (
-                  <span
-                    aria-hidden="true"
-                    className="text-neutral-300 dark:text-neutral-700 select-none pointer-events-none text-[10px] font-mono leading-none px-0.5"
-                  >
-                    |
-                  </span>
-                )}
-                <button
-                  type="button"
-                  onClick={() => navigate(item.route)}
-                  className={`px-1 py-0.5 text-[10px] xs:text-[11px] font-mono tracking-tight transition-colors duration-200 cursor-pointer rounded whitespace-nowrap ${
-                    isActive
-                      ? 'text-[#ea3826] font-bold underline decoration-[#ea3826] underline-offset-2'
-                      : 'text-neutral-600 dark:text-neutral-400 hover:text-neutral-950 dark:hover:text-white font-medium'
-                  }`}
-                  aria-label={`Go to ${item.label}`}
-                >
-                  {item.label}
-                </button>
-              </React.Fragment>
-            );
-          })}
-        </nav>
       </div>
     </div>
   );

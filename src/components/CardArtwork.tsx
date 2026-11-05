@@ -1,6 +1,7 @@
 import React from 'react';
 import type { CardConfig } from '../data/portfolioData';
-import { Sparkles, ArrowUpRight, Terminal, Trophy, Cpu } from 'lucide-react';
+import { Sparkles, ArrowUpRight, Terminal, Trophy, Cpu, Scissors, Film } from 'lucide-react';
+import { YoutubeIcon } from './SocialIcons';
 
 interface CardArtworkProps {
   card: CardConfig;
@@ -9,6 +10,57 @@ interface CardArtworkProps {
 
 export const CardArtwork: React.FC<CardArtworkProps> = ({ card, isHovered }) => {
   switch (card.cardTheme) {
+    case 'edits-violet': // Far Left Card: EDITS & REELS
+      return (
+        <div className="w-full h-full bg-[#120f1e] text-white flex flex-col justify-between p-4 sm:p-5 relative overflow-hidden select-none border border-purple-900/30">
+          {/* Top meta */}
+          <div className="flex items-center justify-between text-[9px] font-mono tracking-widest text-neutral-400 z-10">
+            <span className="flex items-center gap-1 text-purple-400 font-bold">
+              <Scissors className="w-3 h-3 text-purple-400" />
+              <span>POST-PROD</span>
+            </span>
+            <span className="bg-purple-500/20 text-purple-300 px-1.5 py-0.5 rounded text-[8px] font-mono">
+              4K REELS
+            </span>
+          </div>
+
+          {/* Center visual: Film Strip / Lens aperture & glow */}
+          <div className="relative flex items-center justify-center my-auto py-2">
+            <div
+              className={`absolute w-32 h-32 rounded-full bg-purple-600/20 blur-xl transition-all duration-700 ${
+                isHovered ? 'scale-125 opacity-100 bg-purple-500/35' : 'scale-100 opacity-60'
+              }`}
+            />
+            <div className="relative w-24 h-24 sm:w-28 sm:h-28 rounded-full border border-purple-500/40 flex items-center justify-center">
+              <div
+                className="absolute inset-1 rounded-full border border-dashed border-purple-400/50 animate-spin-slow"
+                style={{ animationDuration: '18s' }}
+              />
+              <div
+                className="absolute inset-3 rounded-full border border-pink-400/30 animate-spin-slow"
+                style={{ animationDuration: '12s', animationDirection: 'reverse' }}
+              />
+              <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-tr from-purple-900 via-[#ea3826]/70 to-pink-500 shadow-[0_0_20px_rgba(168,85,247,0.6)] flex items-center justify-center">
+                <Film className="w-6 h-6 text-white" />
+              </div>
+            </div>
+          </div>
+
+          {/* Bottom typography */}
+          <div className="z-10 flex flex-col gap-1 border-t border-purple-500/20 pt-2.5">
+            <div className="flex items-center justify-between">
+              <span className="font-heading font-black text-xs sm:text-sm tracking-wider text-white">
+                EDITS &amp; REELS
+              </span>
+              <ArrowUpRight className="w-3.5 h-3.5 text-purple-400 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            </div>
+            <div className="flex items-center justify-between text-[8px] font-mono text-neutral-400">
+              <span>MOTION DESIGN</span>
+              <span className="text-purple-400">@SHARIQLOGZ</span>
+            </div>
+          </div>
+        </div>
+      );
     case 'dark-cosmic': // Card 1: PROJECTS
       return (
         <div className="w-full h-full bg-[#111216] text-white flex flex-col justify-between p-4 sm:p-5 relative overflow-hidden select-none">
@@ -283,6 +335,58 @@ export const CardArtwork: React.FC<CardArtworkProps> = ({ card, isHovered }) => 
             </div>
             <div className="flex items-center justify-end text-[8px] font-mono text-neutral-400">
               <span className="text-neutral-500 font-serif">007</span>
+            </div>
+          </div>
+        </div>
+      );
+
+    case 'youtube-crimson': // Far Right Card: YOUTUBE
+      return (
+        <div className="w-full h-full bg-[#160d0d] text-white flex flex-col justify-between p-4 sm:p-5 relative overflow-hidden select-none border border-red-900/30">
+          {/* Top meta */}
+          <div className="flex items-center justify-between text-[9px] font-mono tracking-widest text-neutral-400 z-10">
+            <span className="flex items-center gap-1 text-[#ea3826] font-bold">
+              <YoutubeIcon className="w-3 h-3 text-[#ea3826]" />
+              <span>OFFICIAL</span>
+            </span>
+            <span className="bg-[#ea3826]/20 text-[#ea3826] px-1.5 py-0.5 rounded text-[8px] font-mono font-bold">
+              PLAYLISTS
+            </span>
+          </div>
+
+          {/* Center visual: Crimson radial aura with YouTube icon and pulse waves */}
+          <div className="relative flex items-center justify-center my-auto py-2">
+            <div
+              className={`absolute w-32 h-32 rounded-full bg-[#ea3826]/20 blur-xl transition-all duration-700 ${
+                isHovered ? 'scale-125 opacity-100 bg-[#ea3826]/35' : 'scale-100 opacity-60'
+              }`}
+            />
+            <div className="relative w-24 h-24 sm:w-28 sm:h-28 rounded-full border border-red-500/30 flex items-center justify-center">
+              <div
+                className="absolute inset-1 rounded-full border border-dashed border-red-400/40 animate-spin-slow"
+                style={{ animationDuration: '20s' }}
+              />
+              <div
+                className="absolute inset-3 rounded-full border border-amber-400/30 animate-spin-slow"
+                style={{ animationDuration: '14s', animationDirection: 'reverse' }}
+              />
+              <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-tr from-[#991b1b] via-[#ea3826] to-red-400 shadow-[0_0_22px_rgba(234,56,38,0.7)] flex items-center justify-center">
+                <YoutubeIcon className="w-8 h-8 text-white" />
+              </div>
+            </div>
+          </div>
+
+          {/* Bottom typography */}
+          <div className="z-10 flex flex-col gap-1 border-t border-red-500/20 pt-2.5">
+            <div className="flex items-center justify-between">
+              <span className="font-heading font-black text-xs sm:text-sm tracking-wider text-white">
+                YOUTUBE
+              </span>
+              <ArrowUpRight className="w-3.5 h-3.5 text-[#ea3826] transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            </div>
+            <div className="flex items-center justify-between text-[8px] font-mono text-neutral-400">
+              <span>SHARIQLOGZ</span>
+              <span className="text-[#ea3826]">COURSES</span>
             </div>
           </div>
         </div>

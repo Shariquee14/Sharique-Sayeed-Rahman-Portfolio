@@ -13,6 +13,7 @@ import { ProjectsView } from './components/views/ProjectsView';
 import { SportsView } from './components/views/SportsView';
 import { SkillsView } from './components/views/SkillsView';
 import { YouTubeView } from './components/views/YouTubeView';
+import { EditsView } from './components/views/EditsView';
 import { HERO_CARDS } from './data/portfolioData';
 
 export function App() {
@@ -21,12 +22,14 @@ export function App() {
 
   const [dialText, setDialText] = useState<string>('ME');
   const [dialAngle, setDialAngle] = useState<number>(0);
-  const [activeCardId, setActiveCardId] = useState<string | null>(null);
-  const [focusedIndex, setFocusedIndex] = useState<number>(2); // Center card (ME)
+  const [activeCardId, setActiveCardId] = useState<string | null>('me');
+  const [focusedIndex, setFocusedIndex] = useState<number>(3); // Center card (ME)
 
   // Map current route to activeView label for Header
   const getActiveView = () => {
     switch (location.pathname) {
+      case '/edits':
+        return 'VIDEO EDITS & REELS';
       case '/about':
         return 'IDENTITY // ME';
       case '/contact':
@@ -51,7 +54,7 @@ export function App() {
     setFocusedIndex((prev) => {
       const nextIdx = Math.max(0, prev - 1);
       setDialText(HERO_CARDS[nextIdx].title.toUpperCase());
-      setDialAngle((nextIdx - 2) * 22);
+      setDialAngle((nextIdx - 3) * 16);
       setActiveCardId(HERO_CARDS[nextIdx].id);
       return nextIdx;
     });
@@ -61,7 +64,7 @@ export function App() {
     setFocusedIndex((prev) => {
       const nextIdx = Math.min(HERO_CARDS.length - 1, prev + 1);
       setDialText(HERO_CARDS[nextIdx].title.toUpperCase());
-      setDialAngle((nextIdx - 2) * 22);
+      setDialAngle((nextIdx - 3) * 16);
       setActiveCardId(HERO_CARDS[nextIdx].id);
       return nextIdx;
     });
@@ -86,11 +89,13 @@ export function App() {
         e.preventDefault();
         handleNextCard();
       }
-      if (e.key === '1') { setActiveCardId('projects'); navigate('/projects'); }
-      if (e.key === '2') { setActiveCardId('contact'); navigate('/contact'); }
-      if (e.key === '3') { setActiveCardId('me'); navigate('/about'); }
-      if (e.key === '4') { setActiveCardId('sports'); navigate('/achievements'); }
-      if (e.key === '5') { setActiveCardId('skills'); navigate('/skills-education'); }
+      if (e.key === '1') { setActiveCardId('edits'); navigate('/edits'); }
+      if (e.key === '2') { setActiveCardId('projects'); navigate('/projects'); }
+      if (e.key === '3') { setActiveCardId('contact'); navigate('/contact'); }
+      if (e.key === '4') { setActiveCardId('me'); navigate('/about'); }
+      if (e.key === '5') { setActiveCardId('sports'); navigate('/achievements'); }
+      if (e.key === '6') { setActiveCardId('skills'); navigate('/skills-education'); }
+      if (e.key === '7') { setActiveCardId('youtube'); navigate('/youtube'); }
     };
 
     window.addEventListener('keydown', handleKeyDown);
@@ -146,6 +151,17 @@ export function App() {
                 {/* Dedicated Centered Card-Info Display BELOW the Floating Cards */}
                 <ActiveCardInfo activeCardId={activeCardId} />
               </div>
+            }
+          />
+
+          {/* DEDICATED /edits VIEW */}
+          <Route
+            path="/edits"
+            element={
+              <EditsView
+                onBack={() => navigate('/')}
+                onOpenContact={() => navigate('/contact')}
+              />
             }
           />
 

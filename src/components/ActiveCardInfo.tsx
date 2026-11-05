@@ -10,6 +10,13 @@ export interface CardInfoDetail {
 }
 
 export const CARD_INFO_MAP: Record<string, CardInfoDetail> = {
+  edits: {
+    id: 'edits',
+    title: 'EDITS & REELS',
+    description: 'Post-production, motion typography, AI avatars, and short-form storytelling.',
+    subtitle: 'VIDEO POST-PRODUCTION',
+    categoryNumber: 'CREATIVE',
+  },
   me: {
     id: 'me',
     title: 'ABOUT ME',
@@ -44,6 +51,13 @@ export const CARD_INFO_MAP: Record<string, CardInfoDetail> = {
     description: 'My technical skills, academic background, and qualifications.',
     subtitle: 'EXPERTISE & CERTIFICATIONS',
     categoryNumber: 'QUALIFICATIONS',
+  },
+  youtube: {
+    id: 'youtube',
+    title: 'YOUTUBE // SHARIQLOGZ',
+    description: 'Official channel playlists, full video courses, and tech masterclasses.',
+    subtitle: 'SHARIQLOGZ PLAYLISTS',
+    categoryNumber: 'BROADCAST',
   },
 };
 

@@ -268,7 +268,7 @@ export const CERTIFICATIONS: CertificationItem[] = [
 ];
 
 export interface CardConfig {
-  id: 'projects' | 'contact' | 'me' | 'sports' | 'skills';
+  id: 'edits' | 'projects' | 'contact' | 'me' | 'sports' | 'skills' | 'youtube';
   route: string;
   title: string;
   badge: string;
@@ -277,20 +277,32 @@ export interface CardConfig {
   offsetX: number;
   offsetY: number;
   zIndex: number;
-  cardTheme: 'dark-cosmic' | 'red-accent' | 'portrait-center' | 'white-athletic' | 'dark-ornate';
+  cardTheme: 'edits-violet' | 'dark-cosmic' | 'red-accent' | 'portrait-center' | 'white-athletic' | 'dark-ornate' | 'youtube-crimson';
 }
 
 export const HERO_CARDS: CardConfig[] = [
+  {
+    id: 'edits',
+    route: '/edits',
+    title: 'EDITS & REELS',
+    badge: '4K // REELS',
+    categoryLabel: 'POST-PRODUCTION',
+    rotationDeg: -30,
+    offsetX: -380,
+    offsetY: 48,
+    zIndex: 8,
+    cardTheme: 'edits-violet',
+  },
   {
     id: 'projects',
     route: '/projects',
     title: 'PROJECTS & GITHUB',
     badge: 'AI & REPOS',
     categoryLabel: 'CODE // SYSTEMS',
-    rotationDeg: -22,
-    offsetX: -260,
-    offsetY: 28,
-    zIndex: 10,
+    rotationDeg: -20,
+    offsetX: -250,
+    offsetY: 26,
+    zIndex: 12,
     cardTheme: 'dark-cosmic',
   },
   {
@@ -299,10 +311,10 @@ export const HERO_CARDS: CardConfig[] = [
     title: 'CONTACT US',
     badge: 'CONNECT',
     categoryLabel: 'TRANSMISSION',
-    rotationDeg: -11,
-    offsetX: -130,
+    rotationDeg: -10,
+    offsetX: -125,
     offsetY: 8,
-    zIndex: 20,
+    zIndex: 22,
     cardTheme: 'red-accent',
   },
   {
@@ -323,10 +335,10 @@ export const HERO_CARDS: CardConfig[] = [
     title: 'SPORTS & ACHIEVEMENTS',
     badge: '1:1 // GOLD',
     categoryLabel: 'ATHLETICS',
-    rotationDeg: 12,
-    offsetX: 130,
+    rotationDeg: 10,
+    offsetX: 125,
     offsetY: 8,
-    zIndex: 20,
+    zIndex: 22,
     cardTheme: 'white-athletic',
   },
   {
@@ -335,10 +347,22 @@ export const HERO_CARDS: CardConfig[] = [
     title: 'SKILLS & EDUCATION',
     badge: 'B.TECH // 2026',
     categoryLabel: 'EXPERTISE',
-    rotationDeg: 23,
-    offsetX: 260,
-    offsetY: 28,
-    zIndex: 10,
+    rotationDeg: 20,
+    offsetX: 250,
+    offsetY: 26,
+    zIndex: 12,
     cardTheme: 'dark-ornate',
+  },
+  {
+    id: 'youtube',
+    route: '/youtube',
+    title: 'YOUTUBE',
+    badge: 'SHARIQLOGZ',
+    categoryLabel: 'PLAYLISTS // AI',
+    rotationDeg: 30,
+    offsetX: 380,
+    offsetY: 48,
+    zIndex: 8,
+    cardTheme: 'youtube-crimson',
   },
 ];

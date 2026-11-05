@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "sync:youtube": "node scripts/fetch-youtube.js",
-    "build": "node scripts/fetch-youtube.js && tsc -b && vite build",
+    "build": "node scripts/fetch-youtube.js && tsc -b && vite build && node -e \"const fs=require('fs'); fs.copyFileSync('dist/index.html', 'dist/404.html'); fs.copyFileSync('dist/index.html', 'public/404.html');\"",
     "lint": "oxlint src/",
     "preview": "vite preview"
   },
