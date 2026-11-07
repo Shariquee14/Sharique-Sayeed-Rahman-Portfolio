@@ -1,0 +1,248 @@
+/* Living Motion Graphics Background behind the 3D curved wall */
+
+.cw-bg {
+  position: absolute;
+  inset: -80px;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Faint dot grid that shifts opposite to pointer AND moves with scroll */
+.cw-bg-grid {
+  position: absolute;
+  inset: -60px;
+  background-image: radial-gradient(circle, rgba(100, 116, 139, 0.14) 1.2px, transparent 1.2px);
+  background-size: 32px 32px;
+  background-position: center center;
+  will-change: transform;
+}
+
+:is(.dark) .cw-bg-grid {
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.09) 1.2px, transparent 1.2px);
+}
+
+/* Soft big gradient orbs (Pale blue, Lavender, Peach, Mint) - blur only on orbs */
+.cw-bg-orb {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  will-change: transform;
+  opacity: 0.45;
+}
+
+.cw-bg-orb-1 {
+  /* Pale blue */
+  width: 650px;
+  height: 650px;
+  top: 0%;
+  left: 5%;
+  background: radial-gradient(circle, rgba(186, 230, 253, 0.65) 0%, rgba(186, 230, 253, 0) 70%);
+  filter: blur(70px);
+  animation: cwOrbDrift1 26s ease-in-out infinite alternate;
+}
+
+.cw-bg-orb-2 {
+  /* Lavender */
+  width: 700px;
+  height: 700px;
+  top: 10%;
+  right: 5%;
+  background: radial-gradient(circle, rgba(221, 214, 254, 0.6) 0%, rgba(221, 214, 254, 0) 70%);
+  filter: blur(75px);
+  animation: cwOrbDrift2 34s ease-in-out infinite alternate;
+}
+
+.cw-bg-orb-3 {
+  /* Peach */
+  width: 600px;
+  height: 600px;
+  bottom: 5%;
+  left: 10%;
+  background: radial-gradient(circle, rgba(254, 215, 170, 0.55) 0%, rgba(254, 215, 170, 0) 70%);
+  filter: blur(65px);
+  animation: cwOrbDrift3 30s ease-in-out infinite alternate;
+}
+
+.cw-bg-orb-4 {
+  /* Mint */
+  width: 620px;
+  height: 620px;
+  bottom: 8%;
+  right: 8%;
+  background: radial-gradient(circle, rgba(167, 243, 208, 0.52) 0%, rgba(167, 243, 208, 0) 70%);
+  filter: blur(70px);
+  animation: cwOrbDrift4 32s ease-in-out infinite alternate;
+}
+
+:is(.dark) .cw-bg-orb {
+  opacity: 0.24;
+}
+
+/* Floating thin geometric shapes at different depths */
+.cw-bg-shape {
+  position: absolute;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.cw-shape-ring-1 {
+  width: 58px;
+  height: 58px;
+  top: 16%;
+  left: 12%;
+  border: 1.5px solid rgba(148, 163, 184, 0.35);
+  border-radius: 50%;
+  animation: cwFloatA 18s ease-in-out infinite alternate;
+}
+
+.cw-shape-ring-2 {
+  width: 86px;
+  height: 86px;
+  bottom: 20%;
+  right: 14%;
+  border: 1.5px dashed rgba(148, 163, 184, 0.3);
+  border-radius: 50%;
+  animation: cwFloatB 24s ease-in-out infinite alternate;
+}
+
+.cw-shape-plus-1 {
+  top: 25%;
+  right: 20%;
+  font-family: monospace;
+  font-size: 26px;
+  font-weight: 300;
+  color: rgba(148, 163, 184, 0.38);
+  animation: cwFloatC 20s ease-in-out infinite alternate;
+}
+
+.cw-shape-plus-2 {
+  bottom: 28%;
+  left: 18%;
+  font-family: monospace;
+  font-size: 22px;
+  font-weight: 300;
+  color: rgba(148, 163, 184, 0.32);
+  animation: cwFloatA 22s ease-in-out infinite alternate;
+}
+
+.cw-shape-dot-1 {
+  width: 7px;
+  height: 7px;
+  top: 40%;
+  left: 7%;
+  border-radius: 50%;
+  background: rgba(148, 163, 184, 0.38);
+  animation: cwFloatB 16s ease-in-out infinite alternate;
+}
+
+.cw-shape-dot-2 {
+  width: 8px;
+  height: 8px;
+  bottom: 35%;
+  right: 9%;
+  border-radius: 50%;
+  background: rgba(148, 163, 184, 0.34);
+  animation: cwFloatC 19s ease-in-out infinite alternate;
+}
+
+.cw-shape-line-1 {
+  width: 44px;
+  height: 2px;
+  top: 32%;
+  left: 28%;
+  background: linear-gradient(90deg, rgba(148, 163, 184, 0.35), transparent);
+  animation: cwFloatA 21s ease-in-out infinite alternate;
+}
+
+.cw-shape-line-2 {
+  width: 50px;
+  height: 2px;
+  bottom: 24%;
+  right: 30%;
+  background: linear-gradient(90deg, transparent, rgba(148, 163, 184, 0.35));
+  animation: cwFloatB 23s ease-in-out infinite alternate;
+}
+
+/* Subtle motion speed streaks when scrolling fast */
+.cw-bg-streak {
+  position: absolute;
+  height: 1.5px;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgba(148, 163, 184, 0.4), transparent);
+  will-change: opacity, transform;
+  transition: opacity 0.2s ease-out;
+}
+
+.cw-streak-1 { top: 22%; left: 10%; width: 220px; }
+.cw-streak-2 { top: 48%; right: 12%; width: 260px; }
+.cw-streak-3 { bottom: 26%; left: 24%; width: 200px; }
+
+/* Soft spotlight under the focused card that follows pointer smoothly */
+.cw-bg-spotlight {
+  position: absolute;
+  width: 560px;
+  height: 560px;
+  margin-left: -280px;
+  margin-top: -280px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.9) 0%, rgba(240, 245, 255, 0.45) 45%, transparent 70%);
+  pointer-events: none;
+  will-change: transform;
+  opacity: 0.92;
+  transition: transform 0.12s ease-out;
+}
+
+:is(.dark) .cw-bg-spotlight {
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.04) 50%, transparent 75%);
+}
+
+/* Keyframe loops for drifting orbs and shapes */
+@keyframes cwOrbDrift1 {
+  0% { transform: translate3d(0, 0, 0) scale(1); }
+  100% { transform: translate3d(100px, 70px, 0) scale(1.08); }
+}
+
+@keyframes cwOrbDrift2 {
+  0% { transform: translate3d(0, 0, 0) scale(1); }
+  100% { transform: translate3d(-90px, 80px, 0) scale(1.06); }
+}
+
+@keyframes cwOrbDrift3 {
+  0% { transform: translate3d(0, 0, 0) scale(1); }
+  100% { transform: translate3d(80px, -70px, 0) scale(1.1); }
+}
+
+@keyframes cwOrbDrift4 {
+  0% { transform: translate3d(0, 0, 0) scale(1); }
+  100% { transform: translate3d(-85px, -60px, 0) scale(1.05); }
+}
+
+@keyframes cwFloatA {
+  0% { transform: translate3d(0, 0, 0) rotate(0deg); }
+  100% { transform: translate3d(28px, -32px, 0) rotate(16deg); }
+}
+
+@keyframes cwFloatB {
+  0% { transform: translate3d(0, 0, 0) rotate(0deg); }
+  100% { transform: translate3d(-24px, 28px, 0) rotate(-22deg); }
+}
+
+@keyframes cwFloatC {
+  0% { transform: translate3d(0, 0, 0) rotate(0deg); }
+  100% { transform: translate3d(20px, 24px, 0) rotate(26deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cw-bg-orb,
+  .cw-bg-shape {
+    animation: none !important;
+  }
+  .cw-bg-grid,
+  .cw-bg-spotlight,
+  .cw-bg-streak {
+    transition: none !important;
+  }
+}

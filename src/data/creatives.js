@@ -8,7 +8,7 @@
 //
 // To REPLACE an image: change only the file name in its line (or drop a
 // new file with the same name into public/creatives/).
-// The wall counts the lines itself, so 20 now, any number later.
+// The wall counts the lines itself, so 35 now, any number later.
 // ============================================================
 
 // Builds the right path on GitHub Pages (or any base path).
@@ -35,5 +35,19 @@ export const creatives = [
   { src: img('18-square.jpg'), alt: 'Creative work 18', aspect: 'square' },
   { src: img('19-landscape.jpg'), alt: 'Creative work 19', aspect: 'landscape' },
   { src: img('20-square.jpg'), alt: 'Creative work 20', aspect: 'square' },
-  // { src: img('my-next-work.jpg'), alt: 'My next work', aspect: 'portrait' },   <- add a new line
+  { src: img('21-square.jpg'), alt: 'Creative work 21', aspect: 'square' },
+  { src: img('22-square.jpg'), alt: 'Creative work 22', aspect: 'square' },
+  { src: img('23-square.jpg'), alt: 'Creative work 23', aspect: 'square' },
+  { src: img('24-square.jpg'), alt: 'Creative work 24', aspect: 'square' },
+  { src: img('25-square.jpg'), alt: 'Creative work 25', aspect: 'square' },
+  { src: img('26-square.jpg'), alt: 'Creative work 26', aspect: 'square' },
+  { src: img('27-square.jpg'), alt: 'Creative work 27', aspect: 'square' },
+  { src: img('28-square.jpg'), alt: 'Creative work 28', aspect: 'square' },
+  { src: img('29-square.jpg'), alt: 'Creative work 29', aspect: 'square' },
+  { src: img('30-square.jpg'), alt: 'Creative work 30', aspect: 'square' },
+  { src: img('31-square.jpg'), alt: 'Creative work 31', aspect: 'square' },
+  { src: img('32-square.jpg'), alt: 'Creative work 32', aspect: 'square' },
+  { src: img('33-portrait.jpg'), alt: 'Creative work 33', aspect: 'portrait' },
+  { src: img('34-square.jpg'), alt: 'Creative work 34', aspect: 'square' },
+  { src: img('35-portrait.jpg'), alt: 'Creative work 35', aspect: 'portrait' },
 ]
