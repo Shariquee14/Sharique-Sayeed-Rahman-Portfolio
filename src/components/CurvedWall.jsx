@@ -150,12 +150,127 @@ export default function CurvedWall({ items = creatives, label = 'Creatives galle
         : Math.sign(ny) * Math.pow((absY - DEADBAND) / (1 - DEADBAND), 1.25) * MAX_SPEED_Y
   }
 
+  // Update focus and deaden auto-scroll while finger is touching
+  const updateTouchFocus = (clientX, clientY) => {
+    const el = rootRef.current
+    if (!el) return
+    const r = el.getBoundingClientRect()
+    if (!r.width || !r.height) return
+
+    const s = scrollRef.current
+    const nx = Math.max(-1, Math.min(1, (clientX - (r.left + r.width / 2)) / (r.width / 2)))
+    const ny = Math.max(-1, Math.min(1, (clientY - (r.top + r.height / 2)) / (r.height / 2)))
+
+    s.pointerX = nx
+    s.pointerY = ny
+    s.isInteracting = true
+    s.lastInteractTime = performance.now()
+    s.targetVx = 0
+    s.targetVy = 0
+  }
+
+  // Unified drag start: locks finger position, stops auto-scroll, focuses card under touch
+  const handleDragStart = (clientX, clientY) => {
+    const s = scrollRef.current
+    s.isDragging = true
+    s.isInteracting = true
+    s.lastTouchX = clientX
+    s.lastTouchY = clientY
+    s.dragVx = 0
+    s.dragVy = 0
+    s.vx = 0
+    s.vy = 0
+    s.targetVx = 0
+    s.targetVy = 0
+    s.lastTouchTime = performance.now()
+    updateTouchFocus(clientX, clientY)
+  }
+
+  // Unified drag move: 1:1 continuous finger movement in same direction
+  const handleDragMove = (clientX, clientY) => {
+    const s = scrollRef.current
+    if (!s.isDragging) return
+    const now = performance.now()
+    const dt = Math.max(0.008, (now - s.lastTouchTime) / 1000)
+
+    const dx = clientX - s.lastTouchX
+    const dy = clientY - s.lastTouchY
+
+    const { gx, gy } = layoutRef.current
+    if (gx > 0 && gy > 0) {
+      // Direct responsive finger tracking:
+      // When finger moves right (dx > 0), cards move right (s.x decreases)
+      // When finger moves down (dy > 0), cards move down (s.y decreases)
+      s.x -= dx / gx
+      s.y -= dy / gy
+      s.dragVx = - (dx / gx) / dt
+      s.dragVy = - (dy / gy) / dt
+    }
+
+    s.lastTouchX = clientX
+    s.lastTouchY = clientY
+    s.lastTouchTime = now
+    s.lastInteractTime = now
+    updateTouchFocus(clientX, clientY)
+  }
+
+  // Unified drag end: smooth momentum / inertia coasting
+  const handleDragEnd = () => {
+    const s = scrollRef.current
+    if (!s.isDragging) return
+    s.isDragging = false
+    s.lastInteractTime = performance.now()
+    s.vx = Math.max(-MAX_SPEED_X * 2, Math.min(MAX_SPEED_X * 2, s.dragVx * 0.45))
+    s.vy = Math.max(-MAX_SPEED_Y * 2, Math.min(MAX_SPEED_Y * 2, s.dragVy * 0.45))
+    s.targetVx = 0
+    s.targetVy = 0
+  }
+
+  // Flag to avoid duplicate touch/pointer processing
+  const touchActiveRef = useRef(false)
+
+  // Desktop Mouse Events (keeps desktop 100% untouched)
   const onPointerMove = (e) => {
-    if (reduced || scrollRef.current.isDragging) return
+    if (reduced) return
+    if (e.pointerType === 'touch' || e.pointerType === 'pen') {
+      if (!touchActiveRef.current && scrollRef.current.isDragging) {
+        handleDragMove(e.clientX, e.clientY)
+      }
+      return
+    }
+    if (scrollRef.current.isDragging) return
     handlePointerMove(e.clientX, e.clientY)
   }
 
-  const onPointerLeave = () => {
+  const onPointerDown = (e) => {
+    if (reduced) return
+    if (e.pointerType === 'touch' || e.pointerType === 'pen') {
+      if (!touchActiveRef.current) {
+        try {
+          e.currentTarget.setPointerCapture(e.pointerId)
+        } catch (err) {}
+        handleDragStart(e.clientX, e.clientY)
+      }
+      return
+    }
+    handlePointerMove(e.clientX, e.clientY)
+  }
+
+  const onPointerUp = (e) => {
+    if (e.pointerType === 'touch' || e.pointerType === 'pen') {
+      if (!touchActiveRef.current) {
+        try {
+          if (e.currentTarget.hasPointerCapture(e.pointerId)) {
+            e.currentTarget.releasePointerCapture(e.pointerId)
+          }
+        } catch (err) {}
+        handleDragEnd()
+      }
+    }
+  }
+
+  const onPointerLeave = (e) => {
+    if (e.pointerType === 'touch' || e.pointerType === 'pen') return
     const s = scrollRef.current
     s.isInteracting = false
     s.targetVx = 0
@@ -163,62 +278,36 @@ export default function CurvedWall({ items = creatives, label = 'Creatives galle
     s.lastInteractTime = performance.now() - SWAY_AFTER_MS + 400
   }
 
-  // Mobile Touch drag with momentum; vertical page scroll preserved via touch-action: pan-y
-  const onTouchStart = (e) => {
-    if (reduced || !e.touches || !e.touches[0]) return
-    const t = e.touches[0]
-    const s = scrollRef.current
-    s.isDragging = true
-    s.isInteracting = true
-    s.lastTouchX = t.clientX
-    s.lastTouchY = t.clientY
-    s.dragVx = 0
-    s.dragVy = 0
-    s.lastTouchTime = performance.now()
-    handlePointerMove(t.clientX, t.clientY)
-  }
-
-  const onTouchMove = (e) => {
-    if (reduced || !e.touches || !e.touches[0]) return
-    const t = e.touches[0]
-    const s = scrollRef.current
-    const now = performance.now()
-    const dt = Math.max(0.008, (now - s.lastTouchTime) / 1000)
-
-    const dx = t.clientX - s.lastTouchX
-    const dy = t.clientY - s.lastTouchY
-
-    const { gx, gy } = layoutRef.current
-    if (gx > 0 && gy > 0) {
-      s.x -= dx / gx
-      s.y -= dy / gy
-      s.dragVx = - (dx / gx) / dt
-      s.dragVy = - (dy / gy) / dt
-    }
-
-    s.lastTouchX = t.clientX
-    s.lastTouchY = t.clientY
-    s.lastTouchTime = now
-    s.lastInteractTime = now
-    handlePointerMove(t.clientX, t.clientY)
-  }
-
-  const onTouchEnd = () => {
-    const s = scrollRef.current
-    s.isDragging = false
-    s.lastInteractTime = performance.now()
-    s.vx = Math.max(-MAX_SPEED_X * 1.5, Math.min(MAX_SPEED_X * 1.5, s.dragVx * 0.45))
-    s.vy = Math.max(-MAX_SPEED_Y * 1.5, Math.min(MAX_SPEED_Y * 1.5, s.dragVy * 0.45))
-    s.targetVx = 0
-    s.targetVy = 0
-  }
-
+  // Mobile Touch drag with active cancellation of native page scrolling
   useEffect(() => {
     const el = rootRef.current
     if (!el || reduced) return
 
-    el.addEventListener('touchstart', onTouchStart, { passive: true })
-    el.addEventListener('touchmove', onTouchMove, { passive: true })
+    const onTouchStart = (e) => {
+      if (!e.touches || !e.touches[0]) return
+      touchActiveRef.current = true
+      const t = e.touches[0]
+      handleDragStart(t.clientX, t.clientY)
+    }
+
+    const onTouchMove = (e) => {
+      if (e.cancelable) {
+        e.preventDefault() // Prevents page scroll / gesture abortion
+      }
+      if (!e.touches || !e.touches[0]) return
+      const t = e.touches[0]
+      handleDragMove(t.clientX, t.clientY)
+    }
+
+    const onTouchEnd = () => {
+      handleDragEnd()
+      setTimeout(() => {
+        touchActiveRef.current = false
+      }, 100)
+    }
+
+    el.addEventListener('touchstart', onTouchStart, { passive: false })
+    el.addEventListener('touchmove', onTouchMove, { passive: false })
     el.addEventListener('touchend', onTouchEnd, { passive: true })
     el.addEventListener('touchcancel', onTouchEnd, { passive: true })
 
@@ -354,9 +443,11 @@ export default function CurvedWall({ items = creatives, label = 'Creatives galle
       role="region"
       aria-label={label}
       onPointerMove={onPointerMove}
-      onPointerDown={onPointerMove}
+      onPointerDown={onPointerDown}
       onPointerEnter={onPointerMove}
       onPointerLeave={onPointerLeave}
+      onPointerUp={onPointerUp}
+      onPointerCancel={onPointerUp}
     >
       {/* 1. Living Motion Graphics Background */}
       <WallBackground

@@ -5,19 +5,31 @@
   width: 100vw;
   left: 50%;
   margin-left: -50vw;
-  height: calc(100vh - 160px);
-  min-height: 640px;
+  height: calc(100svh - 160px);
+  min-height: 620px;
   overflow: hidden;            /* clip on the full-bleed OUTER wrapper only */
-  touch-action: pan-y;         /* vertical page scroll still works on phones */
+  touch-action: none;          /* direct responsive touch drag on mobile */
   user-select: none;
   -webkit-user-select: none;
   -webkit-tap-highlight-color: transparent;
+  overscroll-behavior: none;
 }
 
 @media (max-width: 640px) {
   .cw-root {
-    height: calc(100vh - 140px);
-    min-height: 540px;
+    width: 100%;
+    left: 0;
+    margin-left: 0;
+    height: calc(100svh - 130px);
+    min-height: 500px;
+    touch-action: none;
+    overscroll-behavior: none;
+  }
+  .cw-stage,
+  .cw-plane,
+  .cw-card {
+    touch-action: none;
+    -webkit-user-drag: none;
   }
 }
 
