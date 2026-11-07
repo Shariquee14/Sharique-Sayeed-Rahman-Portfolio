@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useSearchParams } from 'react-router-dom';
+// import { useSearchParams } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   ArrowLeft,
@@ -44,9 +44,10 @@ interface FolderCardItem {
 }
 
 export const ProjectsView: React.FC<ProjectsViewProps> = ({ onBack, onOpenContact }) => {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const initialMode = searchParams.get('view') === 'folder' ? 'folder' : 'manual';
-  const [viewMode, setViewMode] = useState<'manual' | 'folder'>(initialMode);
+  // const [searchParams, setSearchParams] = useSearchParams();
+  // const initialMode = searchParams.get('view') === 'folder' ? 'folder' : 'manual';
+  // const [viewMode, setViewMode] = useState<'manual' | 'folder'>(initialMode);
+  const [viewMode] = useState<'manual' | 'folder'>('manual');
   const [selectedProject, setSelectedProject] = useState<Project>(PROJECTS[0]);
 
   // Folder Animation States (Reused exactly from existing design)
@@ -246,8 +247,8 @@ export const ProjectsView: React.FC<ProjectsViewProps> = ({ onBack, onOpenContac
 
       // Smoothly emerge cards, then transition to manual project layout
       mobileTimerRef.current = setTimeout(() => {
-        setViewMode('manual');
-        setSearchParams({});
+        // setViewMode('manual');
+        // setSearchParams({});
         setIsMobileOpening(false);
         setIsLockedOpen(false);
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -258,7 +259,7 @@ export const ProjectsView: React.FC<ProjectsViewProps> = ({ onBack, onOpenContac
     }
   };
 
-  const handleSelectViewMode = (mode: 'manual' | 'folder') => {
+  /* const handleSelectViewMode = (mode: 'manual' | 'folder') => {
     setViewMode(mode);
     setSearchParams(mode === 'folder' ? { view: 'folder' } : {});
     if (mode === 'folder') {
@@ -268,7 +269,7 @@ export const ProjectsView: React.FC<ProjectsViewProps> = ({ onBack, onOpenContac
         clearTimeout(mobileTimerRef.current);
       }
     }
-  };
+  }; */
 
   return (
     <div className="w-full max-w-6xl mx-auto px-4 sm:px-8 py-6 sm:py-10">
@@ -293,7 +294,7 @@ export const ProjectsView: React.FC<ProjectsViewProps> = ({ onBack, onOpenContac
         </div>
 
         {/* Switching Options: Manual vs Folder */}
-        <div className="flex items-center gap-2 self-start sm:self-auto">
+        {/* <div className="flex items-center gap-2 self-start sm:self-auto">
           <div className="inline-flex items-center p-1 rounded-full bg-neutral-200 dark:bg-neutral-800/90 border border-neutral-300 dark:border-neutral-700 text-xs font-mono">
             <button
               onClick={() => handleSelectViewMode('manual')}
@@ -318,7 +319,7 @@ export const ProjectsView: React.FC<ProjectsViewProps> = ({ onBack, onOpenContac
               <span>FOLDER</span>
             </button>
           </div>
-        </div>
+        </div> */}
       </div>
 
       {/* Main Interactive Stage with Smooth Crossfade */}
