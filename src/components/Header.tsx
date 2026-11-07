@@ -8,9 +8,10 @@ interface HeaderProps {
   activeView: string | null;
   onBack: () => void;
   onOpenContact: () => void;
+  hideNavMenu?: boolean;
 }
 
-export const Header: React.FC<HeaderProps> = ({ activeView, onBack }) => {
+export const Header: React.FC<HeaderProps> = ({ activeView, onBack, hideNavMenu = false }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const { theme, toggleTheme } = useTheme();
@@ -56,7 +57,8 @@ export const Header: React.FC<HeaderProps> = ({ activeView, onBack }) => {
       </div>
 
       {/* Centre Nav Links (Desktop only — 100% UNTOUCHED) */}
-      <nav className="hidden lg:flex items-center gap-6 text-[11px] font-mono font-medium tracking-[0.18em] text-neutral-500 dark:text-neutral-400 transition-colors">
+      {!hideNavMenu && (
+        <nav className="hidden lg:flex items-center gap-6 text-[11px] font-mono font-medium tracking-[0.18em] text-neutral-500 dark:text-neutral-400 transition-colors">
         <button
           onClick={handleGoHome}
           className={`hover:text-neutral-950 dark:hover:text-white transition-colors cursor-pointer uppercase ${
@@ -122,6 +124,7 @@ export const Header: React.FC<HeaderProps> = ({ activeView, onBack }) => {
           CONTACT
         </button>
       </nav>
+      )}
 
       {/* Right controls: Theme toggle + Mobile Menu Button */}
       <div className="flex items-center gap-2 sm:gap-3">
@@ -141,7 +144,8 @@ export const Header: React.FC<HeaderProps> = ({ activeView, onBack }) => {
         </button>
 
         {/* Mobile Hamburger Toggle Button (Mobile/Tablet only, hidden on lg) */}
-        <button
+        {!hideNavMenu && (
+          <button
           type="button"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           aria-label={isMobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
@@ -154,10 +158,12 @@ export const Header: React.FC<HeaderProps> = ({ activeView, onBack }) => {
             <Menu className="w-5 h-5" />
           )}
         </button>
+        )}
       </div>
 
       {/* Mobile Navigation Dropdown Drawer (Mobile/Tablet only) */}
-      <AnimatePresence>
+      {!hideNavMenu && (
+        <AnimatePresence>
         {isMobileMenuOpen && (
           <>
             {/* Backdrop Dimmer — tap outside to close, background card animations continue running */}
@@ -221,6 +227,7 @@ export const Header: React.FC<HeaderProps> = ({ activeView, onBack }) => {
           </>
         )}
       </AnimatePresence>
+      )}
     </header>
   );
 };

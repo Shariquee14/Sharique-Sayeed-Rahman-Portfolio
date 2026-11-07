@@ -1,0 +1,57 @@
+/* Curved 3D focus wall. Light-theme friendly: crisp cards, soft shadows. */
+
+.cw-root {
+  position: relative;
+  width: 100%;
+  overflow: hidden;            /* clip on the OUTER wrapper only */
+  touch-action: pan-y;         /* vertical page scroll still works on phones */
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.cw-stage {
+  position: absolute;
+  inset: 0;
+  perspective: 1200px;         /* 3D depth of the wall */
+  perspective-origin: 50% 50%;
+}
+
+.cw-plane {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 0;
+  height: 0;
+  transform-style: preserve-3d;  /* cards share one 3D space */
+}
+
+.cw-card {
+  position: absolute;
+  border-radius: 20px;
+  overflow: hidden;
+  background: #ffffff;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(0);
+  opacity: 0.96;               /* crisp and colourful, no washed-out look */
+  box-shadow:
+    0 4px 6px -1px rgba(15, 23, 42, 0.07),
+    0 18px 36px -12px rgba(15, 23, 42, 0.22);
+  will-change: transform;
+}
+
+.cw-card img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  -webkit-user-drag: none;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cw-card { will-change: auto; }
+}

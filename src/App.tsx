@@ -14,6 +14,10 @@ import { SportsView } from './components/views/SportsView';
 import { SkillsView } from './components/views/SkillsView';
 import { YouTubeView } from './components/views/YouTubeView';
 import { EditsView } from './components/views/EditsView';
+import { CreativesView } from './components/views/CreativesView';
+import { MotionGraphicsView } from './components/views/MotionGraphicsView';
+import { VideoEditingView } from './components/views/VideoEditingView';
+import { DesignBrandingView } from './components/views/DesignBrandingView';
 import { HERO_CARDS } from './data/portfolioData';
 import CorkboardHome from './components/CorkboardHome';
 import { CardArtwork } from './components/CardArtwork';
@@ -38,9 +42,36 @@ export function App() {
 
   const isMobile = windowWidth < 768;
 
+  const isDedicatedPage = [
+    '/creatives',
+    '/edits/creatives',
+    '/motion-graphics-typography',
+    '/motion-graphics',
+    '/edits/motion-graphics-typography',
+    '/video-editing',
+    '/edits/video-editing',
+    '/designed-and-branding',
+    '/design-branding',
+    '/edits/designed-and-branding',
+  ].includes(location.pathname);
+
   // Map current route to activeView label for Header
   const getActiveView = () => {
     switch (location.pathname) {
+      case '/creatives':
+      case '/edits/creatives':
+        return 'CREATIVES';
+      case '/motion-graphics-typography':
+      case '/motion-graphics':
+      case '/edits/motion-graphics-typography':
+        return 'MOTION GRAPHICS & TYPOGRAPHY';
+      case '/video-editing':
+      case '/edits/video-editing':
+        return 'VIDEO EDITING';
+      case '/designed-and-branding':
+      case '/design-branding':
+      case '/edits/designed-and-branding':
+        return 'DESIGN & BRANDING';
       case '/edits':
         return 'VIDEO EDITS & REELS';
       case '/about':
@@ -90,8 +121,12 @@ export function App() {
         return;
       }
 
-      if (e.key === 'Escape' && !isHomePage) {
-        navigate('/');
+      if (e.key === 'Escape') {
+        if (isDedicatedPage) {
+          navigate('/edits');
+        } else if (!isHomePage) {
+          navigate('/');
+        }
       }
 
       if (e.key === 'ArrowLeft') {
@@ -115,6 +150,12 @@ export function App() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isHomePage, navigate, handlePrevCard, handleNextCard]);
 
+  // 100% Standalone Creatives Webpage (bypasses main site header, nav menu, and background)
+  const isCreativesPage = location.pathname === '/creatives' || location.pathname === '/edits/creatives';
+  if (isCreativesPage) {
+    return <CreativesView onBack={() => navigate('/edits')} />;
+  }
+
   return (
     <div className="relative min-h-screen w-full bg-[#ececee] dark:bg-[#18181b] text-[#121212] dark:text-[#f5f5f5] overflow-x-hidden flex flex-col justify-between selection:bg-[#ea3826] selection:text-white transition-colors duration-300">
       {/* Subtle AI & Technology-Themed Background Graphics (Consistent across all subpages) */}
@@ -123,8 +164,9 @@ export function App() {
       {/* Top Header Bar */}
       <Header
         activeView={activeView}
-        onBack={() => navigate('/')}
+        onBack={() => (isDedicatedPage ? navigate('/edits') : navigate('/'))}
         onOpenContact={() => navigate('/contact')}
+        hideNavMenu={isDedicatedPage}
       />
 
       {/* Main Routes */}
@@ -192,6 +234,51 @@ export function App() {
                 onOpenContact={() => navigate('/contact')}
               />
             }
+          />
+
+          {/* DEDICATED INDIVIDUAL PAGES FOR ADDED SECTION */}
+          <Route
+            path="/creatives"
+            element={<CreativesView onBack={() => navigate('/edits')} />}
+          />
+          <Route
+            path="/edits/creatives"
+            element={<CreativesView onBack={() => navigate('/edits')} />}
+          />
+
+          <Route
+            path="/motion-graphics-typography"
+            element={<MotionGraphicsView onBack={() => navigate('/edits')} />}
+          />
+          <Route
+            path="/motion-graphics"
+            element={<MotionGraphicsView onBack={() => navigate('/edits')} />}
+          />
+          <Route
+            path="/edits/motion-graphics-typography"
+            element={<MotionGraphicsView onBack={() => navigate('/edits')} />}
+          />
+
+          <Route
+            path="/video-editing"
+            element={<VideoEditingView onBack={() => navigate('/edits')} />}
+          />
+          <Route
+            path="/edits/video-editing"
+            element={<VideoEditingView onBack={() => navigate('/edits')} />}
+          />
+
+          <Route
+            path="/designed-and-branding"
+            element={<DesignBrandingView onBack={() => navigate('/edits')} />}
+          />
+          <Route
+            path="/design-branding"
+            element={<DesignBrandingView onBack={() => navigate('/edits')} />}
+          />
+          <Route
+            path="/edits/designed-and-branding"
+            element={<DesignBrandingView onBack={() => navigate('/edits')} />}
           />
 
           {/* 2. DEDICATED /about VIEW */}
@@ -263,8 +350,9 @@ export function App() {
         </Routes>
       </main>
 
-      {/* Editorial Footer */}
-      <footer className="w-full max-w-7xl mx-auto px-4 sm:px-8 py-4 sm:py-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-[10px] sm:text-[11px] font-mono text-neutral-500 dark:text-neutral-400 border-t border-neutral-300/60 dark:border-neutral-800 z-20 transition-colors">
+      {/* Editorial Footer (hidden on dedicated pages so no main website navigation options are displayed) */}
+      {!isDedicatedPage && (
+        <footer className="w-full max-w-7xl mx-auto px-4 sm:px-8 py-4 sm:py-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-[10px] sm:text-[11px] font-mono text-neutral-500 dark:text-neutral-400 border-t border-neutral-300/60 dark:border-neutral-800 z-20 transition-colors">
         <div className="flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-[#ea3826]" />
           <span className="text-neutral-900 dark:text-white font-semibold tracking-wide">SHARIQUE SAYEED RAHMAN</span>
@@ -300,6 +388,7 @@ export function App() {
           </button>
         </div>
       </footer>
+      )}
     </div>
   );
 }

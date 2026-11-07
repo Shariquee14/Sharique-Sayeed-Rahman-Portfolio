@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import CorkboardGrid from '../CorkboardGrid';
 import {
@@ -33,6 +34,7 @@ interface EditCardItem {
 }
 
 export const EditsView: React.FC<EditsViewProps> = ({ onBack, onOpenContact }) => {
+  const navigate = useNavigate();
   const [spotlightCard, setSpotlightCard] = useState<EditCardItem | null>(null);
 
   const EDIT_CARDS: EditCardItem[] = [
@@ -164,15 +166,21 @@ export const EditsView: React.FC<EditsViewProps> = ({ onBack, onOpenContact }) =
           ]}
           heading="WORK"
           onSelect={(card: any) => {
-            const matched =
-              EDIT_CARDS.find(
-                (c) =>
-                  c.id === card.id ||
-                  c.title.toLowerCase() === (card.title || '').toLowerCase()
-              ) ||
-              EDIT_CARDS[(card.id || 1) - 1] ||
-              card;
-            setSpotlightCard(matched);
+            const cardId = String(card.id || '');
+            const cardTitle = (card.title || '').toLowerCase();
+            if (cardId === '1' || cardId === 'creatives' || cardTitle.includes('creative')) {
+              navigate('/creatives');
+            } else {
+              const matched =
+                EDIT_CARDS.find(
+                  (c) =>
+                    c.id === card.id ||
+                    c.title.toLowerCase() === (card.title || '').toLowerCase()
+                ) ||
+                EDIT_CARDS[(card.id || 1) - 1] ||
+                card;
+              setSpotlightCard(matched);
+            }
           }}
         />
       </div>
