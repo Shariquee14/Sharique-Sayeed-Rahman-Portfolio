@@ -15,6 +15,7 @@ import "./CorkboardHome.css";
 // ME (the about card with the portrait) takes the centre "group photo" spot.
 const SLOTS = {
   edits:    { x: 23, y: 25, rot: -8, w: 34 },
+  creatives:{ x: 23, y: 25, rot: -8, w: 34 },
   projects: { x: 77, y: 24, rot:  7, w: 34 },
   contact:  { x: 18, y: 50, rot:  6, w: 33 },
   me:       { x: 50, y: 51, rot: -2, w: 48 },   // biggest, in the middle, drawn on top
@@ -26,13 +27,16 @@ const SLOTS = {
 // Strings: every card connects to the ME pin, plus neighbour links to create the web.
 const LINKS = [
   ["edits", "me"],
+  ["creatives", "me"],
   ["projects", "me"],
   ["contact", "me"],
   ["sports", "me"],
   ["skills", "me"],
   ["youtube", "me"],
   ["edits", "projects"],
+  ["creatives", "projects"],
   ["edits", "contact"],
+  ["creatives", "contact"],
   ["projects", "sports"],
   ["contact", "skills"],
   ["sports", "youtube"],

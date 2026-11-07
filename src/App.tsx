@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, lazy, Suspense } from 'react';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { Header } from './components/Header';
 import { HeroHeading } from './components/HeroHeading';
@@ -7,20 +7,32 @@ import { DialBackground } from './components/DialBackground';
 import { HeroBackground } from './components/HeroBackground';
 import { SubpageBackground } from './components/SubpageBackground';
 import { ActiveCardInfo } from './components/ActiveCardInfo';
-import { MeView } from './components/views/MeView';
-import { ContactView } from './components/views/ContactView';
-import { ProjectsView } from './components/views/ProjectsView';
-import { SportsView } from './components/views/SportsView';
-import { SkillsView } from './components/views/SkillsView';
-import { YouTubeView } from './components/views/YouTubeView';
-import { EditsView } from './components/views/EditsView';
-import { CreativesView } from './components/views/CreativesView';
-import { MotionGraphicsView } from './components/views/MotionGraphicsView';
-import { VideoEditingView } from './components/views/VideoEditingView';
-import { DesignBrandingView } from './components/views/DesignBrandingView';
 import { HERO_CARDS } from './data/portfolioData';
 import CorkboardHome from './components/CorkboardHome';
 import { CardArtwork } from './components/CardArtwork';
+
+// Lazy-loaded views for code splitting and ultra-fast initial page load
+const MeView = lazy(() => import('./components/views/MeView').then(m => ({ default: m.MeView })));
+const ContactView = lazy(() => import('./components/views/ContactView').then(m => ({ default: m.ContactView })));
+const ProjectsView = lazy(() => import('./components/views/ProjectsView').then(m => ({ default: m.ProjectsView })));
+const SportsView = lazy(() => import('./components/views/SportsView').then(m => ({ default: m.SportsView })));
+const SkillsView = lazy(() => import('./components/views/SkillsView').then(m => ({ default: m.SkillsView })));
+const YouTubeView = lazy(() => import('./components/views/YouTubeView').then(m => ({ default: m.YouTubeView })));
+const CreativesView = lazy(() => import('./components/views/CreativesView').then(m => ({ default: m.CreativesView })));
+const MotionGraphicsView = lazy(() => import('./components/views/MotionGraphicsView').then(m => ({ default: m.MotionGraphicsView })));
+const VideoEditingView = lazy(() => import('./components/views/VideoEditingView').then(m => ({ default: m.VideoEditingView })));
+const DesignBrandingView = lazy(() => import('./components/views/DesignBrandingView').then(m => ({ default: m.DesignBrandingView })));
+
+function RouteLoadingFallback() {
+  return (
+    <div className="flex-1 w-full flex items-center justify-center min-h-[50vh]">
+      <div className="flex flex-col items-center gap-3">
+        <div className="w-8 h-8 rounded-full border-2 border-neutral-300 dark:border-neutral-700 border-t-[#ea3826] animate-spin" />
+        <span className="font-mono text-xs tracking-wider text-neutral-500 uppercase">Loading section...</span>
+      </div>
+    </div>
+  );
+}
 
 export function App() {
   const location = useLocation();
@@ -43,8 +55,6 @@ export function App() {
   const isMobile = windowWidth < 768;
 
   const isDedicatedPage = [
-    '/creatives',
-    '/edits/creatives',
     '/motion-graphics-typography',
     '/motion-graphics',
     '/edits/motion-graphics-typography',
@@ -59,8 +69,10 @@ export function App() {
   const getActiveView = () => {
     switch (location.pathname) {
       case '/creatives':
+      case '/creative':
+      case '/edits':
       case '/edits/creatives':
-        return 'CREATIVES';
+        return 'CREATIVE';
       case '/motion-graphics-typography':
       case '/motion-graphics':
       case '/edits/motion-graphics-typography':
@@ -72,8 +84,6 @@ export function App() {
       case '/design-branding':
       case '/edits/designed-and-branding':
         return 'DESIGN & BRANDING';
-      case '/edits':
-        return 'VIDEO EDITS & REELS';
       case '/about':
         return 'IDENTITY // ME';
       case '/contact':
@@ -137,7 +147,7 @@ export function App() {
         e.preventDefault();
         handleNextCard();
       }
-      if (e.key === '1') { setActiveCardId('edits'); navigate('/edits'); }
+      if (e.key === '1') { setActiveCardId('creatives'); navigate('/creatives'); }
       if (e.key === '2') { setActiveCardId('projects'); navigate('/projects'); }
       if (e.key === '3') { setActiveCardId('contact'); navigate('/contact'); }
       if (e.key === '4') { setActiveCardId('me'); navigate('/about'); }
@@ -151,10 +161,7 @@ export function App() {
   }, [isHomePage, navigate, handlePrevCard, handleNextCard]);
 
   // 100% Standalone Creatives Webpage (bypasses main site header, nav menu, and background)
-  const isCreativesPage = location.pathname === '/creatives' || location.pathname === '/edits/creatives';
-  if (isCreativesPage) {
-    return <CreativesView onBack={() => navigate('/edits')} />;
-  }
+  // Standalone Creatives Webpage is now fully integrated into the main site layout and navigation
 
   return (
     <div className="relative min-h-screen w-full bg-[#ececee] dark:bg-[#18181b] text-[#121212] dark:text-[#f5f5f5] overflow-x-hidden flex flex-col justify-between selection:bg-[#ea3826] selection:text-white transition-colors duration-300">
@@ -171,7 +178,8 @@ export function App() {
 
       {/* Main Routes */}
       <main className="flex-1 w-full flex flex-col justify-center relative">
-        <Routes>
+        <Suspense fallback={<RouteLoadingFallback />}>
+          <Routes>
           {/* 1. HERO HOME LANDING VIEW (NO FOOTER) */}
           <Route
             path="/"
@@ -225,25 +233,42 @@ export function App() {
             }
           />
 
-          {/* DEDICATED /edits VIEW */}
+          {/* DEDICATED CREATIVE VIEW (REPLACING OLD EDITS SECTION) */}
           <Route
-            path="/edits"
+            path="/creatives"
             element={
-              <EditsView
+              <CreativesView
                 onBack={() => navigate('/')}
                 onOpenContact={() => navigate('/contact')}
               />
             }
           />
-
-          {/* DEDICATED INDIVIDUAL PAGES FOR ADDED SECTION */}
           <Route
-            path="/creatives"
-            element={<CreativesView onBack={() => navigate('/edits')} />}
+            path="/creative"
+            element={
+              <CreativesView
+                onBack={() => navigate('/')}
+                onOpenContact={() => navigate('/contact')}
+              />
+            }
+          />
+          <Route
+            path="/edits"
+            element={
+              <CreativesView
+                onBack={() => navigate('/')}
+                onOpenContact={() => navigate('/contact')}
+              />
+            }
           />
           <Route
             path="/edits/creatives"
-            element={<CreativesView onBack={() => navigate('/edits')} />}
+            element={
+              <CreativesView
+                onBack={() => navigate('/')}
+                onOpenContact={() => navigate('/contact')}
+              />
+            }
           />
 
           <Route
@@ -348,6 +373,7 @@ export function App() {
             }
           />
         </Routes>
+      </Suspense>
       </main>
 
       {/* Editorial Footer (hidden on dedicated pages so no main website navigation options are displayed) */}

@@ -36,7 +36,7 @@ export const CardDeck: React.FC<CardDeckProps> = ({ onHoverCard }) => {
   // Strictly Mobile-Only card display order: About Me first, followed by remaining cards in their existing sequence
   const MOBILE_HERO_CARDS = [
     HERO_CARDS.find((c) => c.id === 'me')!,
-    HERO_CARDS.find((c) => c.id === 'edits')!,
+    (HERO_CARDS.find((c) => c.id === 'creatives') || HERO_CARDS.find((c) => c.id === 'edits'))!,
     HERO_CARDS.find((c) => c.id === 'projects')!,
     HERO_CARDS.find((c) => c.id === 'contact')!,
     HERO_CARDS.find((c) => c.id === 'sports')!,

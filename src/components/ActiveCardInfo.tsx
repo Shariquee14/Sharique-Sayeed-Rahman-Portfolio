@@ -10,9 +10,16 @@ export interface CardInfoDetail {
 }
 
 export const CARD_INFO_MAP: Record<string, CardInfoDetail> = {
+  creatives: {
+    id: 'creatives',
+    title: 'CREATIVES',
+    description: 'Interactive 3D focus wall featuring 88 pieces of artwork, brand identity, and designs.',
+    subtitle: 'VISUAL SHOWCASE',
+    categoryNumber: 'CREATIVE',
+  },
   edits: {
     id: 'edits',
-    title: 'EDITS & REELS',
+    title: 'CREATIVES',
     description: 'Post-production, motion typography, AI avatars, and short-form storytelling.',
     subtitle: 'VIDEO POST-PRODUCTION',
     categoryNumber: 'CREATIVE',

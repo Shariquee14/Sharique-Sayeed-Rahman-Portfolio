@@ -100,12 +100,12 @@ export const Header: React.FC<HeaderProps> = ({ activeView, onBack, hideNavMenu 
           SKILLS / EDUCATION
         </button>
         <button
-          onClick={() => navigate('/edits')}
+          onClick={() => navigate('/creatives')}
           className={`hover:text-neutral-950 dark:hover:text-white transition-colors cursor-pointer uppercase ${
-            location.pathname === '/edits' ? 'text-neutral-950 dark:text-white font-bold' : ''
+            location.pathname === '/creatives' || location.pathname === '/creative' || location.pathname === '/edits' ? 'text-neutral-950 dark:text-white font-bold' : ''
           }`}
         >
-          EDITS
+          CREATIVE
         </button>
         <button
           onClick={() => navigate('/youtube')}
@@ -200,11 +200,11 @@ export const Header: React.FC<HeaderProps> = ({ activeView, onBack, hideNavMenu 
                 { label: 'PROJECT', path: '/projects', action: () => navigate('/projects') },
                 { label: 'SPORTS', path: '/achievements', action: () => navigate('/achievements') },
                 { label: 'SKILLS / EDUCATION', path: '/skills-education', action: () => navigate('/skills-education') },
-                { label: 'EDITS', path: '/edits', action: () => navigate('/edits') },
+                { label: 'CREATIVE', path: '/creatives', action: () => navigate('/creatives') },
                 { label: 'YOUTUBE', path: '/youtube', action: () => navigate('/youtube') },
                 { label: 'CONTACT', path: '/contact', action: () => navigate('/contact') },
               ].map((item) => {
-                const isActive = location.pathname === item.path;
+                const isActive = location.pathname === item.path || (item.path === '/creatives' && (location.pathname === '/creative' || location.pathname === '/edits'));
                 return (
                   <button
                     key={item.label}

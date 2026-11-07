@@ -279,7 +279,7 @@ export const CERTIFICATIONS: CertificationItem[] = [
 ];
 
 export interface CardConfig {
-  id: 'edits' | 'projects' | 'contact' | 'me' | 'sports' | 'skills' | 'youtube';
+  id: 'creatives' | 'edits' | 'projects' | 'contact' | 'me' | 'sports' | 'skills' | 'youtube';
   route: string;
   title: string;
   badge: string;
@@ -293,11 +293,11 @@ export interface CardConfig {
 
 export const HERO_CARDS: CardConfig[] = [
   {
-    id: 'edits',
-    route: '/edits',
-    title: 'EDITS & REELS',
-    badge: '4K // REELS',
-    categoryLabel: 'POST-PRODUCTION',
+    id: 'creatives',
+    route: '/creatives',
+    title: 'CREATIVES',
+    badge: '3D // WALL',
+    categoryLabel: 'VISUAL // ART',
     rotationDeg: -30,
     offsetX: -380,
     offsetY: 48,
