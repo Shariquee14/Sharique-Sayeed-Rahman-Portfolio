@@ -779,6 +779,18 @@ export const ProjectsView: React.FC<ProjectsViewProps> = ({ onBack, onOpenContac
                       <ExternalLink className="w-3.5 h-3.5 opacity-60" />
                     </a>
 
+                    {selectedProject.liveDemoUrl && (
+                      <a
+                        href={selectedProject.liveDemoUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-mono text-xs font-bold transition-colors shadow-sm"
+                      >
+                        <ExternalLink className="w-4 h-4" />
+                        <span>LIVE PREVIEW</span>
+                      </a>
+                    )}
+
                     <button
                       onClick={onOpenContact}
                       className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 text-neutral-900 dark:text-neutral-200 font-mono text-xs font-semibold transition-colors"

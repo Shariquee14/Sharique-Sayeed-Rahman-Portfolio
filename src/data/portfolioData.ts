@@ -59,48 +59,59 @@ export const PERSONAL_INFO = {
 
 export const PROJECTS: Project[] = [
   {
+    id: "portfolio-website",
+    title: "Personal Portfolio Website",
+    tagline: "Responsive Web Design // Interactive AI-Assisted Development",
+    tags: ["HTML5", "CSS3", "JavaScript", "Responsive Web Design", "AI-Assisted Development"],
+    description: "Designed and developed a responsive personal portfolio website featuring professional experience, skills, projects, certifications, and interactive sections.",
+    bullets: [
+      "Designed and developed a responsive personal portfolio website featuring professional experience, skills, projects, certifications, and interactive sections.",
+      "Created the website using AI-assisted development based on my own ideas and design planning, while personally reviewing, testing, and refining its content and functionality."
+    ],
+    impact: "Delivers a responsive, multi-view digital portfolio with smooth transitions and zero layout shifts across desktop and mobile devices.",
+    architecture: ["React & TypeScript Core", "Tailwind CSS & Framer Motion", "Vite Production Pipeline"],
+    githubUrl: "https://github.com/Shariquee14/Sharique-Sayeed-Rahman-Portfolio",
+    liveDemoUrl: "https://shariquee14.github.io/Sharique-Sayeed-Rahman-Portfolio/",
+  },
+  {
+    id: "smart-resume-builder",
+    title: "Smart Resume Builder",
+    tagline: "Python & Flask // ATS Skill Evaluation & AI-Based Summary Enhancement",
+    tags: ["Python", "Flask", "NLP", "AI Integration", "HTML/CSS/JavaScript"],
+    description: "Developed an AI-powered resume builder that analyzes job descriptions, identifies required skills, and evaluates resume compatibility using ATS scoring.",
+    bullets: [
+      "Developed an AI-powered resume builder that analyzes job descriptions, identifies required skills, and evaluates resume compatibility using ATS scoring.",
+      "Implemented resume customization, AI-based summary enhancement, and PDF generation to help users create job-specific resumes."
+    ],
+    impact: "Automates ATS scoring diagnostics and targeted skill alignment to optimize job application qualification rates.",
+    architecture: ["Flask Backend Engine", "NLP ATS Competency Parser", "Dynamic PDF Generation Pipeline"],
+    githubUrl: "https://github.com/Shariquee14/smart-resume-builder",
+  },
+  {
     id: "genai-analytics",
     title: "GenAI Business Analytics & Strategy Simulation",
     tagline: "Forage // Enterprise GenAI Workflows & Strategic Decision Pipelines",
-    tags: ["Forage", "Generative AI", "Strategic Analysis", "Enterprise Workflows", "ROI Modeling"],
-    description: "Designed AI-driven enterprise solution frameworks during the Forage GenAI Data Analytics simulation to streamline complex business reporting pipelines and provide data-backed executive decision models.",
+    tags: ["Forage", "Generative AI", "Strategic Analysis", "Enterprise Workflows"],
+    description: "Designed AI-driven solution frameworks during the Forage GenAI Data Analytics simulation to streamline complex business reporting pipelines and provide data-backed executive decision models.",
     bullets: [
       "Designed AI-driven solution frameworks during the Forage GenAI Data Analytics simulation to streamline complex business reporting pipelines.",
-      "Translated technical analytical findings into executive-level summary presentations, defining strategic implementation roadmaps and ROI impacts.",
-      "Synthesized unstructured enterprise data using prompt engineering patterns to produce instant boardroom-ready KPIs."
+      "Translated technical analytical findings into executive-level summary presentations, defining strategic implementation roadmaps and ROI impacts."
     ],
     impact: "Reduced reporting turnaround latency while aligning AI adoption directly with strategic business objectives.",
     architecture: ["GenAI Prompt Architecture", "Automated Data Ingestion", "Executive ROI Synthesizer"],
     githubUrl: "https://github.com/Shariquee14/genai-business-analytics",
   },
   {
-    id: "ai-hr-recruitment",
-    title: "AI-Driven Automated HR Recruitment Platform",
-    tagline: "NLP & Python // Autonomous Candidate Screening & Semantic Skill Extraction",
-    tags: ["NLP", "Python", "Solution Architecture", "Process Engineering", "Information Extraction"],
-    description: "Conceptualized and developed an AI-assisted resume processing tool engineered to eliminate manual screening bottlenecks in high-volume enterprise talent acquisition.",
-    bullets: [
-      "Conceptualized and developed an AI-assisted resume processing tool designed to eliminate manual screening bottlenecks in talent acquisition.",
-      "Analyzed end-to-end recruitment workflows, replacing manual document reviews with automated NLP extraction and competency mapping.",
-      "Engineered semantic parsing algorithms to match candidate experience vectors against complex technical job descriptions."
-    ],
-    impact: "Eliminated up to 70% of redundant resume screening time with verifiable skill competency scoring.",
-    architecture: ["FastAPI Backend", "SpaCy / NLTK Semantic Parser", "Vector Matching Engine"],
-    githubUrl: "https://github.com/Shariquee14/ai-recruitment-screening",
-  },
-  {
     id: "climate-risk-analytics",
     title: "Decision-Support Climate Risk Analytics Model",
-    tagline: "Predictive Machine Learning // Weather Risk Forecasting & Resource Allocation",
-    tags: ["Python", "Predictive Modeling", "Decision Trees", "Risk Analytics", "Scikit-Learn"],
+    tagline: "Python & ML // Weather Risk Forecasting & Resource Allocation",
+    tags: ["Python", "Predictive Modeling", "Decision Trees", "Risk Analytics"],
     description: "Developed a predictive weather forecasting model as a decision-support prototype for climate risk evaluation and agricultural/municipal resource allocation.",
     bullets: [
-      "Developed a predictive weather forecasting model as a decision-support prototype for climate risk evaluation and resource allocation.",
-      "Implemented supervised machine learning algorithms including Decision Trees and Ensemble methods for anomaly pattern recognition.",
-      "Constructed interactive data storytelling dashboards explaining risk thresholds to non-technical stakeholders."
+      "Developed a predictive weather forecasting model as a decision-support prototype for climate risk evaluation and resource allocation."
     ],
-    impact: "Provided actionable early-warning alerts for extreme atmospheric fluctuations.",
-    architecture: ["Pandas Data Pipeline", "Scikit-learn Regressors & Classifiers", "Risk Scoring Engine"],
+    impact: "Provided actionable early-warning alerts and predictive meteorological risk projections for proactive resource allocation.",
+    architecture: ["Pandas Data Pipeline", "Decision Trees & Ensemble Models", "Risk Threshold Evaluation Engine"],
     githubUrl: "https://github.com/Shariquee14/climate-risk-analytics",
   }
 ];
