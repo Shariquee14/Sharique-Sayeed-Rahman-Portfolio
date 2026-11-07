@@ -15,6 +15,8 @@ import { SkillsView } from './components/views/SkillsView';
 import { YouTubeView } from './components/views/YouTubeView';
 import { EditsView } from './components/views/EditsView';
 import { HERO_CARDS } from './data/portfolioData';
+import CorkboardHome from './components/CorkboardHome';
+import { CardArtwork } from './components/CardArtwork';
 
 export function App() {
   const location = useLocation();
@@ -24,6 +26,17 @@ export function App() {
   const [dialAngle, setDialAngle] = useState<number>(0);
   const [activeCardId, setActiveCardId] = useState<string | null>('me');
   const [focusedIndex, setFocusedIndex] = useState<number>(3); // Center card (ME)
+  const [windowWidth, setWindowWidth] = useState<number>(
+    typeof window !== 'undefined' ? window.innerWidth : 1200
+  );
+
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const isMobile = windowWidth < 768;
 
   // Map current route to activeView label for Header
   const getActiveView = () => {
@@ -121,35 +134,51 @@ export function App() {
           <Route
             path="/"
             element={
-              <div className="w-full flex flex-col items-center justify-between flex-1 relative py-2">
+              <div className="w-full flex flex-col items-center justify-start md:justify-between flex-1 relative py-1 sm:py-2">
                 {/* Hero Heading with Red Vertical Accent & Layered Typography */}
                 <HeroHeading onPrev={handlePrevCard} onNext={handleNextCard} />
 
-                {/* 3D Radial Dial & Elliptical Moving Cards */}
-                <div className="relative w-full flex-1 flex flex-col items-center justify-end mt-4 sm:mt-6 overflow-visible">
-                  {/* Futuristic circular background details — behind everything */}
-                  <HeroBackground />
+                {/* Mobile Pinned Corkboard (<768px) vs Desktop 3D Radial Deck (>=768px) */}
+                {isMobile ? (
+                  <div className="w-full flex-1 flex items-center justify-center py-2">
+                    <CorkboardHome
+                      cards={HERO_CARDS}
+                      renderFace={(card, active) => <CardArtwork card={card} isHovered={active} />}
+                      onOpen={(card) => navigate(card.route)}
+                      onActive={(card) => {
+                        setDialText(card.title.toUpperCase());
+                        setActiveCardId(card.id);
+                      }}
+                    />
+                  </div>
+                ) : (
+                  <div className="relative w-full flex-1 flex flex-col items-center justify-end mt-4 sm:mt-6 overflow-visible">
+                    {/* Futuristic circular background details — behind everything */}
+                    <HeroBackground />
 
-                  {/* Concentric Dial Background with Active Rotating Needle */}
-                  <DialBackground
-                    activeCardIndex={focusedIndex}
-                    activeCardName={dialText}
-                    activeAngle={dialAngle}
-                  />
+                    {/* Concentric Dial Background with Active Rotating Needle */}
+                    <DialBackground
+                      activeCardIndex={focusedIndex}
+                      activeCardName={dialText}
+                      activeAngle={dialAngle}
+                    />
 
-                  {/* Five Curved Floating Animated Cards */}
-                  <CardDeck
-                    onHoverCard={(title, angle, cardId) => {
-                      setDialText(title.toUpperCase());
-                      setDialAngle(angle);
-                      setActiveCardId(cardId || null);
-                    }}
-                    activeAngle={dialAngle}
-                  />
-                </div>
+                    {/* Five Curved Floating Animated Cards */}
+                    <CardDeck
+                      onHoverCard={(title, angle, cardId) => {
+                        setDialText(title.toUpperCase());
+                        setDialAngle(angle);
+                        setActiveCardId(cardId || null);
+                      }}
+                      activeAngle={dialAngle}
+                    />
+                  </div>
+                )}
 
                 {/* Dedicated Centered Card-Info Display BELOW the Floating Cards */}
-                <ActiveCardInfo activeCardId={activeCardId} />
+                <div className="hidden md:block">
+                  <ActiveCardInfo activeCardId={activeCardId} />
+                </div>
               </div>
             }
           />
