@@ -267,6 +267,11 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
 
 export const CERTIFICATIONS: CertificationItem[] = [
   {
+    name: "Artificial Intelligence & Machine Learning (AI & ML) Internship",
+    issuer: "Techcoder Software",
+    description: "Completed a 3-month internship (August–November 2026), working with Python, Pandas, NumPy, Scikit-learn, and TensorFlow on data preprocessing, exploratory data analysis, machine learning model development and evaluation, AI algorithms, and AI-powered applications."
+  },
+  {
     name: "GenAI Powered Data Analytics Job Simulation",
     issuer: "Forage",
     description: "Gained practical enterprise exposure to Generative AI workflows, advanced prompt engineering, and business data analytics."
